@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import barraBusqueda from '@/components/barraBusqueda.vue'
+import barraBusqueda from '@/components/barra-busqueda.vue'
 
 
 export default {
