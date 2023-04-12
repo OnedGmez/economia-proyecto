@@ -61,6 +61,7 @@ CREATE TABLE Tags
   ServiceCode varchar (10) primary key,
   ServiceName varchar (25),
   ItemCode varchar (10),
+  Icono varchar (25),
    FOREIGN KEY (ItemCode) REFERENCES Items(ItemCode)
  );
 
