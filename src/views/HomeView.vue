@@ -10,16 +10,23 @@
         <div class="busqueda">
           <barraBusqueda />
         </div>
-        <div class="d-flex inicio-sesion">
-          <div class="inicio-sesion-lenguaje">
-            <div class="img">
-              <img class="img-fluid" src="../assets/img/logo.png" alt="Logo RentAway">
+        <div class="inicio-sesion">
+          <div class="d-flex inicio-sesion-nombre">
+            <div class="nombre-usuario">
+              <span>$Nombre-Usuario</span>
+            </div>
+            <div class="avatar">
+              <span><font-awesome-icon icon="user-tie" /></span>
             </div>
           </div>
         </div>
       </div>
       <div class="zona-filtros">
-
+        <div class="categorias">
+          <div class="categoria">
+            
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +56,7 @@ export default {
 
 .pagina .cabecera .logo {
   position: relative;
-  flex: 1 0 165px;
+  flex: 1 0 105px;
 }
 
 .pagina .cabecera .logo .img {
@@ -64,10 +71,30 @@ export default {
 .pagina .cabecera .busqueda {
   position: relative;
   flex: 0 1 auto;
-  min-width: 348px;
+  min-width: 575px;
+  margin: 0 15px;
 }
 
 .pagina .cabecera .inicio-sesion {
-  flex: 1 0 165px;
+  position: relative;
+  flex: 1 0 105px;
+  justify-content: end;
+}
+
+.pagina .cabecera .inicio-sesion .inicio-sesion-nombre{
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.pagina .cabecera .inicio-sesion .inicio-sesion-nombre .nombre-usuario{
+  margin: 0 20px 0 0;
+}
+
+.pagina .cabecera .inicio-sesion .inicio-sesion-nombre .avatar{
+  border-radius: 50%;
+  background-color: #fe4b56;
+  color: #fff;
+  font-size: x-large;
+  padding: 4px 12px;
 }
 </style>
