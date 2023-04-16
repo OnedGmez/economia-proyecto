@@ -10,7 +10,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 2</span>
@@ -179,7 +179,7 @@
 
 .lista-filtros .item-filtro .nombre-filtro {
     width: max-content;
-    transition: color 180ms ease-in-out;
+    transition: color 184ms ease-in-out;
 }
 
 .lista-filtros .item-filtro:hover>>>div {
