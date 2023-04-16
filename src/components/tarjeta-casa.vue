@@ -108,7 +108,7 @@ const propsTarjeta = defineProps([
 
 .card .card-body .precio-renta .precio {
     font-weight: 600;
-    font-size: calc(.5em + .65vw);
+    font-size: calc(.5em + .55vw);
     margin-left: 12px;
 }
 
@@ -182,7 +182,7 @@ const propsTarjeta = defineProps([
     }
 
     .card .card-body .precio-renta .precio {
-        font-size: calc(.8em + .7vw);
+        font-size: calc(.8em + .6vw);
         margin-left: 10px;
     }
 
