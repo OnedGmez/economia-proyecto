@@ -64,7 +64,7 @@
 import { ref } from 'vue';
 import carruselFiltro from './carrusel-filtro.vue';
 
-
+const IDSeleccionada = ref('')
 
 const emisiones = defineEmits([
     'cerrarModal'
@@ -151,10 +151,15 @@ const seleccionarRating = (rating) => {
     outline: none !important;
 }
 
-.form-control:focus {
+.form-control:focus{
     box-shadow: none;
     border: #ff475e solid .5px;
     border-bottom: #6907f2 solid .5px;
+}
+
+.btn-close:focus{
+    box-shadow: none;
+    border: none;
 }
 
 .filtros-principales .filtro-precios div:first-child {
