@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import inicioSesion from '@/components/complementos-componentes.vue/formulario-inicio-sesion.vue'
+import inicioSesion from '@/components/complementos-componentes/formulario-inicio-sesion.vue'
 
 const propsModal = defineProps([
     'accion'
