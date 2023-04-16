@@ -114,7 +114,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" :src="rutaCategorias + 'casa-de-campo.svg'" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 15</span>
@@ -251,7 +251,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { generalStore } from '@/store/index.js';
 import VueHorizontal from "vue-horizontal";
+
+const store = generalStore()
+const IDSeleccionada = ref(false)
+const rutaCategorias = store.pathCategorias
+const rutaServicios = store.pathServicios
 
 const seleccionado = ref(false)
 
