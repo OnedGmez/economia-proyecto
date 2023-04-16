@@ -36,7 +36,8 @@
       </div>
       <div class="main container">
         <div class="row">
-          <tarjetaCasas v-for="info in dataPrueba" :data="info" :key="info.idHome" />
+          <tarjetaCasas v-for="info in dataPrueba" :data="info" :key="info.idHome"
+            @abrir-detalles="(detalle) => abrirModalDetalles(detalle)" />
         </div>
       </div>
       <div v-if="mostrarMenuCel == true" :class="[scrolleando == true ? 'oculto' : '']"
@@ -46,7 +47,7 @@
             <span class="icono"><font-awesome-icon icon="house" /> </span>
           </div>
           <div class="text-btn">
-            <span >Home</span>
+            <span>Home</span>
           </div>
         </div>
         <div @click="desplegarOtrosFiltros" class="item-menu filtro-btn">
@@ -70,9 +71,10 @@
       </div>
     </div>
     <accionesSesion v-if="mostrandoModalAccionesSesion == true"
-      @desplegar-modal="(nombreModal) => {desplegarSubModal(nombreModal), desplegarModalSesion()}" />
+      @desplegar-modal="(nombreModal) => { desplegarSubModal(nombreModal), desplegarModalSesion() }" />
     <modalSesion v-if="mostrandoModalSesion == true" :accion="accionModal" @cerrar-modal="() => cerrarSubModal()" />
     <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" />
+    <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa" />
   </div>
 </template>
 
@@ -85,6 +87,7 @@ import modalSesion from '@/components/modal-sesion.vue'
 import tarjetaCasas from '@/components/tarjeta-casa.vue'
 import zonaFiltros from '@/components/carrusel-filtro.vue';
 import modalOtrosFiltros from '@/components/modal-otros-filtros.vue'
+import modalDetallesCasa from '@/components/modal-detalles-casa.vue';
 import router from '@/router';
 
 const accionModal = ref('')
@@ -94,6 +97,8 @@ const mostrandoModalSesion = ref(false)
 const mostrandoModalFiltros = ref(false)
 const scrolleando = ref(false)
 const mostrarMenuCel = ref(false)
+const mostrarDetallesCasa = ref(false)
+const informacionDetalleCasa = ref([{}])
 const lastScroll = ref(0);
 
 
@@ -160,6 +165,11 @@ const cerrarSubModal = () => {
  */
 const desplegarOtrosFiltros = () => {
   mostrandoModalFiltros.value = !mostrandoModalFiltros.value
+}
+
+const abrirModalDetalles = (data) => {
+  mostrarDetallesCasa.value = !mostrarDetallesCasa.value
+  informacionDetalleCasa.value = data
 }
 
 /**
@@ -308,11 +318,11 @@ if (screen.width <= 768) {
   color: #000000;
 }
 
-.pagina .estatica-mobile-bottom .item-menu{
+.pagina .estatica-mobile-bottom .item-menu {
   color: #8e8e8e;
 }
 
-.pagina .estatica-mobile-bottom .item-menu:hover{
+.pagina .estatica-mobile-bottom .item-menu:hover {
   color: #ff475e;
 }
 
@@ -320,7 +330,7 @@ if (screen.width <= 768) {
   font-size: calc(1em + .75vw);
 }
 
-.pagina .estatica-mobile-bottom .text-btn{
+.pagina .estatica-mobile-bottom .text-btn {
   font-weight: 600;
   font-size: calc(.8em + .45vw);
 }
