@@ -62,6 +62,11 @@ const cerrarModal = () => {
     padding-left: 16px;
 }
 
+.btn-close:focus{
+    box-shadow: none;
+    border: none;
+}
+
 /*
   * Configuramos el media query para dispositivo celulares 
  */
