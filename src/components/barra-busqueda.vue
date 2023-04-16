@@ -4,8 +4,7 @@
         <div class="icono-barra">
             <span id="busqueda-input"><font-awesome-icon icon="magnifying-glass" /></span>
         </div>
-        <span class="separador"></span>
-        <input type="text" name="barra" id="input-barra">
+        <input type="text" name="barra" placeholder="¿Que ciudad deseas visitar?" id="input-barra">
     </div>
 </template>
 
@@ -13,35 +12,49 @@
 .barra-busqueda {
     border-radius: 40px;
     align-items: center;
-    border: 1px solid #6907f2;
+    border: 1px solid #6907f23f;
     max-width: 100%;
     width: auto;
-    box-shadow: 0 2px 4px #6907f251;
     transition: box-shadow 0.2s ease;
 }
 
 .barra-busqueda .icono-barra:hover {
-    background-color:#6907f2;
+    box-shadow: 1px 2px 5px #6907f2;
 }
 
-.barra-busqueda .icono-barra{
-    background-color: #fe4b56;
+.barra-busqueda .icono-barra {
+    background-color: #6907f2;
     border-radius: 50%;
     padding: 4px 8px;
-    margin: 5px 8px;
+    margin: 3px 4px;
     color: #fff;
-    transition: all 190ms ease-in-out;
+    transition: all 140ms ease-in-out;
 }
 
-.barra-busqueda #input-barra{
+.barra-busqueda #input-barra {
     width: 100%;
     border-radius: 40px;
     border: none;
-    height: 40px;
+    height: 35px;
+    margin-left: 3px;
+    font-size: calc(.5em + .45vw);
 }
 
-.barra-busqueda #input-barra:focus-visible{
+.barra-busqueda #input-barra:focus-visible {
     outline: none !important;
+}
+
+/*
+  * Configuramos el media query para dispositivo celulares 
+*/
+@media (max-width: 768px) {
+    .barra-busqueda #input-barra {
+        font-size: calc(.65em + .45vw);
+    }
+
+    .barra-busqueda .icono-barra {
+        padding: 3px 7px;
+    }
 }
 </style>
 
