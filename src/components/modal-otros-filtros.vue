@@ -64,7 +64,7 @@
 import { ref } from 'vue';
 import carruselFiltro from './carrusel-filtro.vue';
 
-const IDSeleccionada = ref(false)
+
 
 const emisiones = defineEmits([
     'cerrarModal'
@@ -124,8 +124,6 @@ const seleccionarRating = (rating) => {
     color: #ff475e;
 }
 
-
-
 .filtros-principales .rating .estrellas>.fijada+.estrella:hover,
 .filtros-principales .rating .estrellas>.fijada+.estrella:hover~.estrella,
 .filtros-principales .rating .estrellas>.fijada~.estrella:hover,
@@ -158,6 +156,21 @@ const seleccionarRating = (rating) => {
     white-space: pre-wrap;
 }
 
+.modal-footer button{
+    border: 1px #ff475e solid;
+    background-color: #fff;
+    color: #ff475e;
+    padding: 3px 10px;
+    border-radius: 7px;
+    transition: all 180ms ease-in-out;
+    font-weight: 600;
+    font-size: calc(.5em + .45vw);
+}
+
+.modal-footer button:hover{
+    background-color: #ff475e;
+    color: #fff;
+}
 
 /*
   * Configuramos el media query para dispositivo celulares 
