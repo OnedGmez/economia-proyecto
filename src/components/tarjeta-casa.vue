@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6 col-md-4 col-lg-3 contenedor-tarjeta">
+    <div @click="mostrarDetalles()" class="col-md-6 col-md-4 col-lg-3 contenedor-tarjeta">
         <div class="card">
             <div class="img">
                 <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])" class="img-fluid card-img-top"
@@ -47,9 +47,17 @@
 </template>
 
 <script setup>
+const emisiones = defineEmits([
+    'abrirDetalles'
+])
+
 const propsTarjeta = defineProps([
     'data'
 ])
+
+const mostrarDetalles = () => {
+    emisiones('abrirDetalles', propsTarjeta.data)
+}
 </script>
 
 <style scoped>
