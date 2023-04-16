@@ -6,14 +6,13 @@
         <div class="form d-flex">
             <div class="input-group">
                 <span class="input-group-text" id="usuario-input"></span>
-                <input type="text" class="form-control" autofocus required
-                    placeholder="Usuario/Correo electrónico" aria-label="Usuario"
-                    aria-describedby="usuario-input">
+                <input type="text" class="form-control" autofocus required placeholder="Usuario/Correo electrónico"
+                    aria-label="Usuario" aria-describedby="usuario-input">
             </div>
             <div class="input-group">
                 <span class="input-group-text" id="contra-input"></span>
-                <input type="password" class="form-control" required
-                    placeholder="Contraseña" aria-label="Contrasenia" aria-describedby="contra-input">
+                <input type="password" class="form-control" required placeholder="Contraseña" aria-label="Contrasenia"
+                    aria-describedby="contra-input">
             </div>
             <a href="#">Olvidé mi contraseña</a>
         </div>
@@ -104,10 +103,18 @@ a:hover {
     transition: all 300ms ease-out;
 }
 
-/*Media Querys*/
-@media (max-width: 991.5px) {
-    .form-control {
-        font-size: calc(.9em + 0.15vw) !important;
+/*
+  * Configuramos el media query para dispositivo celulares 
+ */
+@media (max-width: 768px) {
+
+    .form-control,
+    a {
+        font-size: calc(.7em + .45vw) !important;
+    }
+
+    .button {
+        font-size: calc(.85em + .85vw);
     }
 }
 </style>
