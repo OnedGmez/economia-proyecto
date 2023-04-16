@@ -81,10 +81,10 @@ const seleccionarRating = (rating) => {
 </script>
 
 <style scoped>
-
-.modal{
+.modal {
     backdrop-filter: blur(2.5px);
 }
+
 .modal-header {
     border: none;
     padding-bottom: 0px;
@@ -138,12 +138,23 @@ const seleccionarRating = (rating) => {
     padding: 3px 6px;
     background-color: #ff475e;
     color: #fff;
+    border: #ff475e solid .5px;
 }
 
 .input-group>.form-control {
     flex: none;
     width: 80px;
     font-size: calc(.6em + .2vw) !important;
+}
+
+.form-control:focus-visible {
+    outline: none !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: #ff475e solid .5px;
+    border-bottom: #6907f2 solid .5px;
 }
 
 .filtros-principales .filtro-precios div:first-child {
@@ -156,7 +167,7 @@ const seleccionarRating = (rating) => {
     white-space: pre-wrap;
 }
 
-.modal-footer button{
+.modal-footer button {
     border: 1px #ff475e solid;
     background-color: #fff;
     color: #ff475e;
@@ -167,7 +178,7 @@ const seleccionarRating = (rating) => {
     font-size: calc(.5em + .45vw);
 }
 
-.modal-footer button:hover{
+.modal-footer button:hover {
     background-color: #ff475e;
     color: #fff;
 }
