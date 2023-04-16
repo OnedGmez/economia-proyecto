@@ -74,7 +74,7 @@
       @desplegar-modal="(nombreModal) => { desplegarSubModal(nombreModal), desplegarModalSesion() }" />
     <modalSesion v-if="mostrandoModalSesion == true" :accion="accionModal" @cerrar-modal="() => cerrarSubModal()" />
     <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" />
-    <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa" />
+    <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa" @cerrar-detalles="() => cerrarModalDetalles()"/>
   </div>
 </template>
 
@@ -170,6 +170,10 @@ const desplegarOtrosFiltros = () => {
 const abrirModalDetalles = (data) => {
   mostrarDetallesCasa.value = !mostrarDetallesCasa.value
   informacionDetalleCasa.value = data
+}
+
+const cerrarModalDetalles = () =>{
+  mostrarDetallesCasa.value = false
 }
 
 /**
