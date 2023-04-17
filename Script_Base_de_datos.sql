@@ -34,15 +34,15 @@ CREATE TABLE Tags
  );
  
  create table Persons(
- DNI varchar (25) primary key,
- FirstName varchar (25),
- SecondName varchar (25),
- PaternalSurname varchar (25),
- MotherLastName varchar (25),
+ DNI varchar (15) primary key,
+ FirstName varchar (50),
+ SecondName varchar (50),
+ PaternalSurname varchar (50),
+ MotherLastName varchar (50),
  DayOfBirth Date,
- Age varchar (25),
- gender varchar (25),
- URLProfilePhoto varchar (125),
+ Age INT ,
+ gender char,
+ URLProfilePhoto TEXT,
  CountryCode varchar(10),
  FOREIGN KEY (CountryCode) REFERENCES Countries(CountryCode)
  );
@@ -50,10 +50,10 @@ CREATE TABLE Tags
  
  create table ClientPersons (
  ClientCode varchar (10) primary key,
- RegisterDate datetime,
- AVGRating varchar(25),
- NumServicesContracted varchar (25),
- DNI varchar (25) unique KEY,
+ RegisterDate DATE,
+ AVGRating NUMERIC(3,2),
+ NumServicesContracted INT DEFAULT 0,
+ DNI varchar (15) unique KEY,
  FOREIGN KEY (DNI) REFERENCES Persons(DNI)
  );
  
@@ -67,70 +67,68 @@ CREATE TABLE Tags
 
 create table DocumentsPerson(
 DocumentCode varchar (25) primary key,
-URLDriverLicense  varchar (125),
-URLTaskHistory varchar (125),
-URLCourtRegistry varchar (125),
-Validated varchar (25),
-DNI varchar (25),
+URLDriverLicense  TEXT,
+URLTaskHistory TEXT,
+URLCourtRegistry TEXT,
+Validated BIT DEFAULT 0,
+DNI varchar (15),
  FOREIGN KEY (DNI) REFERENCES Persons(DNI)
 
 );
 
 create table ContactInformation(
 ContactCode varchar (10) primary key,
-EmailAddress varchar (25) unique,
-TelephonePrefix varchar (25),
-TelephoneNumber varchar (25) unique,
-DNI varchar (25),
+EmailAddress VARCHAR(100) unique,
+TelephonePrefix varchar (10),
+TelephoneNumber varchar (10) unique,
+DNI varchar (15),
  FOREIGN KEY (DNI) REFERENCES Persons(DNI)
 );
  
  create table Cards(
- BinCard varchar (10) primary key,
+ BinCard varchar (18) primary key,
  CardName varchar (25),
- CardPin varchar (25),
+ CardPin varchar (4),
  ExpirationDate DATE,
- OwnerName varchar (25),
+ OwnerName TEXT,
  CVV varchar (5),
- Balance varchar (25),
- DNI varchar (25),
+ Balance NUMERIC(6,2),
+ DNI varchar (15),
  FOREIGN KEY (DNI) REFERENCES Persons(DNI)
  );
  
  create table Payments(
  PaymentCode varchar (10) primary key,
- PaymentDate datetime,
- SubtotalReservation  varchar (25),
- SubtotalSecurityDeposit varchar (25),
- OverallSubtotal varchar (25),
- GrandTotalOld varchar (25),
- TotalDepositReturned varchar (25),
- GrandTotalNew varchar (25),
- PaymentMade varchar (25),
- ChargeCard varchar (10),
+ PaymentDate DATE,
+ SubtotalReservation NUMERIC(6,2),
+ SubtotalSecurityDeposit NUMERIC(6,2),
+ OverallSubtotal NUMERIC(6,2),
+ GrandTotalOld NUMERIC(6,2),
+ TotalDepositReturned NUMERIC(6,2),
+ GrandTotalNew NUMERIC(6,2),
+ ChargeCard varchar (18),
  FOREIGN KEY (ChargeCard) REFERENCES Cards(BinCard)
  );
  
  create table DepositManagement (
  PaymentCode varchar (10) primary key,
- TotalDeposit varchar (25),
- DamageCharge varchar (25),
- DescriptionDamage varchar (25),
- TotalRefundedDeposit varchar (25),
- Revised varchar (25),
- Paycode varchar (10),
- FOREIGN KEY  (Paycode) REFERENCES  Payments(PaymentCode)
+ TotalDeposit NUMERIC(6,2),
+ DamageCharge NUMERIC(6,2),
+ DescriptionDamage TEXT,
+ TotalRefundedDeposit NUMERIC(6,2),
+ Revised BIT DEFAULT 0,
+ FOREIGN KEY  (PaymentCode) REFERENCES  Payments(PaymentCode)
  );
  
  create table Apartments(
  ApartmentCode varchar(10) primary key,
- Coords varchar (25),
- City varchar (25),
- Rating varchar (25),
- BaseRentalPrice varchar (25),
+ Coords varchar (100),
+ City varchar (100),
+ Rating NUMERIC(3,2),
+ BaseRentalPrice NUMERIC(6,2),
  URLPhoto Text,
- SecurityDeposit varchar (25),
- CancellationProtection varchar (25),
+ SecurityDeposit NUMERIC(6,2),
+ CancellationProtection NUMERIC(6,2),
  CategoryCode varchar (10),
  FOREIGN KEY (CategoryCode) REFERENCES  Categories (CategoryCode)
  );
@@ -146,19 +144,18 @@ FOREIGN KEY (ServiceCode) REFERENCES Services(ServiceCode)
  
  create table ApartmentDocuments (
  DocumentCode varchar (10) primary key,
- URLPropertyDeed varchar (125),
- Validated varchar (25),
+ URLPropertyDeed TEXT,
+ Validated BIT DEFAULT 0,
  ApartmentCode varchar (10),
  FOREIGN KEY (ApartmentCode) REFERENCES Apartments(ApartmentCode)
  );
  
  create table DetailsApartment(
  DetailCode varchar (10) primary key,
- Location varchar (25),
- FloorNum varchar (25),
- ApartmentNum varchar (25),
- NumRooms varchar (25),
- NumBathRooms varchar (25),
+ Location TEXT,
+ FloorNum INT,
+ NumRooms INT,
+ NumBathRooms INT,
  ApartmentCode  varchar (10),
  TagCode varchar (10),
  FOREIGN KEY (ApartmentCode) REFERENCES Apartments(ApartmentCode),
@@ -170,8 +167,7 @@ FOREIGN KEY (ServiceCode) REFERENCES Services(ServiceCode)
  Brand varchar (25),
  Color varchar (25),
  City varchar (25),
- Available varchar (25),
- URLPhoto varchar (125),
+ URLPhoto TEXT,
  CategoryCode varchar (10),
  TypeVehicleCode varchar (10),
  FOREIGN KEY (CategoryCode) REFERENCES Categories (CategoryCode),
@@ -180,9 +176,9 @@ FOREIGN KEY (ServiceCode) REFERENCES Services(ServiceCode)
  
  create table DepartmentsReservation (
  DepartmentReservationCode varchar (10) primary key,
- ReservationDateHour datetime,
- ReservationEndDateHour datetime,
- ReservedDays INT AS (DATEDIFF(ReservationDateHour, ReservationEndDateHour)),
+ ReservationDate date,
+ ReservationEndDate date,
+ ReservedDays INT,
  ReservedBy varchar (10),
  ApartmentCode varchar (10),
  FOREIGN KEY  (ReservedBy) REFERENCES ClientPersons(ClientCode),
@@ -192,13 +188,13 @@ FOREIGN KEY (ServiceCode) REFERENCES Services(ServiceCode)
 create table DetailsVehicles (
 DetailCode varchar (10) primary key,
 Model varchar (25),
-Year varchar (25),
-NumPersons varchar (25),
-LargeSuitcases varchar (25),
-SmallSuitcases varchar (25),
+Year INT,
+NumPersons INT,
+LargeSuitcases INT,
+SmallSuitcases INT,
 EngineType varchar (25),
-TankCapacity varchar (25),
-NumDoors varchar (25),
+TankCapacity INT,
+NumDoors INT,
 PlateCode varchar (10),
 TypeTransmition varchar (10),
 FOREIGN KEY (PlateCode) REFERENCES Vehicles (PlateCode),
@@ -207,10 +203,10 @@ FOREIGN KEY (TypeTransmition) REFERENCES TypesTransmitions(TypeTransmitionCode)
 
 create table VehicleDocs (
 VehicleDocsCode varchar (10) primary key,
-URLDoc varchar (125),
-URLPropertyDeedVehicule varchar (125),
-URLVehicleOverhaul varchar (125),
-Validated varchar (25),
+URLDoc TEXT,
+URLPropertyDeedVehicule TEXT,
+URLVehicleOverhaul TEXT,
+Validated BIT DEFAULT 0,
 PlateCode varchar (10),
 FOREIGN KEY (PlateCode) REFERENCES Vehicles(PlateCode)
 );
@@ -226,17 +222,17 @@ FOREIGN KEY (ServiceCode) REFERENCES Services(ServiceCode)
 CREATE TABLE RentACar (
 RentACarCode VARCHAR (10) PRIMARY KEY,
 PlateCode VARCHAR (10) UNIQUE,
-RentalPrice varchar (25),
-CancellationProtection varchar (25),
+RentalPrice NUMERIC(6,2),
+CancellationProtection NUMERIC(6,2),
 FOREIGN KEY (PlateCode) REFERENCES Vehicles(PlateCode)
 );
 
 CREATE TABLE Cabs (
 CabCode VARCHAR(10) PRIMARY KEY,
 PlateCode VARCHAR (10) UNIQUE,
-BaseRentalPrice varchar (25),
-CancellationProtection varchar (25),
-Available varchar (25),
+BaseRentalPrice NUMERIC(6,2),
+CancellationProtection NUMERIC(6,2),
+Available BIT,
 FOREIGN KEY (PlateCode) REFERENCES Vehicles(PlateCode)
 );
 
@@ -244,9 +240,9 @@ CREATE TABLE CabsReservation (
 CabReservationCode VARCHAR(10) PRIMARY KEY,
 CabCode  VARCHAR (10),
 ReservatedBy VARCHAR (10),
-OriginTravel varchar (25),
-TravelDestination varchar (25),
-KilometersAway varchar (25),
+OriginTravel TEXT,
+TravelDestination TEXT,
+KilometersAway NUMERIC(6,2),
 FOREIGN KEY (CabCode) REFERENCES Cabs(CabCode),
 FOREIGN KEY (ReservatedBy) REFERENCES ClientPersons(ClientCode)
 );
@@ -255,14 +251,13 @@ CREATE TABLE  RentACarsReservation (
 RACReservationCode  VARCHAR(10) PRIMARY KEY,
 RentACarCode VARCHAR (10),
 ReservatedBy VARCHAR (10),
-ReservationDateHour DATETIME,
-ReservationEndDateHour DATETIME,
-ReservedDays INT AS (DATEDIFF(ReservationDateHour, ReservationEndDateHour)),
-ReceptionPlace VARCHAR (25),
-ReturnPlace VARCHAR (25),
+ReservationDate DATE,
+ReservationEndDateHour DATE,
+ReservedDays INT,
+ReceptionPlace TEXT,
+ReturnPlace TEXT,
 FOREIGN KEY (RentACarCode) REFERENCES RentACar(RentACarCode),
 FOREIGN KEY (ReservatedBy) REFERENCES ClientPersons(ClientCode)
-
 );
 
 
@@ -272,11 +267,11 @@ PaymentCode VARCHAR(10),
 DepartmentReservationCode VARCHAR(10),
 RACReservationCode VARCHAR(10),
 CabReservationCode VARCHAR(10),
-SecurityDepositDepartment VARCHAR(25),
-SecurityDepositRentACar VARCHAR(25),
-SubTotalDepartmentReservation VARCHAR(25),
-SubTotalRACReservation VARCHAR(25),
-SubTotalCabReservation VARCHAR(25),
+SecurityDepositDepartment NUMERIC(10,2),
+SecurityDepositRentACar NUMERIC(10,2),
+SubTotalDepartmentReservation NUMERIC(10,2),
+SubTotalRACReservation NUMERIC(10,2),
+SubTotalCabReservation NUMERIC(10,2),
 
 FOREIGN KEY  (PaymentCode)              REFERENCES Payments(PaymentCode),
 FOREIGN KEY (DepartmentReservationCode) REFERENCES DepartmentsReservation(DepartmentReservationCode),
