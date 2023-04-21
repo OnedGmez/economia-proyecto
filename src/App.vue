@@ -43,7 +43,7 @@ nav a.router-link-exact-active {
   width: 90%;
   height: 1px;
   display: block;
-  margin: 0 auto 10px auto;
+  margin: 7px auto 15px auto;
   background-color: #8e8e8e;
 }
 
