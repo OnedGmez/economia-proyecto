@@ -70,9 +70,13 @@ const cerrarModal = () => {
 /*
   * Configuramos el media query para dispositivo celulares 
  */
-@media (max-width: 768px) {
+@media (max-width: 991.5px) {
     .img-lateral{
         display: none;
+    }
+
+    .form-space{
+        border-left: none;
     }
 }
 </style>
