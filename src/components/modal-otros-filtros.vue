@@ -151,13 +151,13 @@ const seleccionarRating = (rating) => {
     outline: none !important;
 }
 
-.form-control:focus{
+.form-control:focus {
     box-shadow: none;
     border: #ff475e solid .5px;
     border-bottom: #6907f2 solid .5px;
 }
 
-.btn-close:focus{
+.btn-close:focus {
     box-shadow: none;
     border: none;
 }
@@ -199,7 +199,11 @@ const seleccionarRating = (rating) => {
 
     .input-group>.form-control {
         flex: none;
-        width: 50px;
+        width: 60px;
+    }
+
+    .modal-footer button {
+        font-size: calc(.6em + .45vw);
     }
 }
 </style>
