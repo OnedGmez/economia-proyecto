@@ -18,9 +18,6 @@
           </div>
           <div v-if="mostrarMenuCel == false" class="inicio-sesion">
             <div class="d-flex inicio-sesion-nombre">
-              <div class="nombre-usuario">
-                <span>Invitado</span>
-              </div>
               <div @click="desplegarModalSesion" class="avatar">
                 <span><font-awesome-icon icon="user-tie" /></span>
               </div>
@@ -38,7 +35,6 @@
             </div>
           </button>
         </div>
-
       </div>
       <div class="main container">
         <div class="row">
@@ -46,12 +42,12 @@
             @abrir-detalles="(detalle) => abrirModalDetalles(detalle)" />
         </div>
       </div>
-      <menuCelular v-if="mostrarMenuCel == true"/>
+      <menuCelular v-if="mostrarMenuCel == true" @abrir-sesion="(accion) => desplegarSubModal(accion)" />
     </div>
     <accionesSesion v-if="mostrandoModalAccionesSesion == true"
       @desplegar-modal="(nombreModal) => { desplegarSubModal(nombreModal), desplegarModalSesion() }" />
     <modalSesion v-if="mostrandoModalSesion == true" :accion="accionModal" @cerrar-modal="() => cerrarSubModal()" />
-    <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" />
+    <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" vista='Home' />
     <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa"
       @cerrar-detalles="() => cerrarModalDetalles()" />
   </div>
@@ -198,7 +194,7 @@ if (screen.width <= 768) {
 }
 
 .pagina .estatica-top .cabecera .logo img {
-  width: 160px;
+  width: 135px;
 }
 
 .pagina .estatica-top .cabecera .busqueda {
@@ -237,6 +233,7 @@ if (screen.width <= 768) {
   width: 100%;
   padding: 0 35px;
   z-index: -1;
+  margin-bottom: 15px;
   align-items: center;
   justify-content: space-between;
 }
