@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <div class="filtro-precios">
+                        <div v-if="vista == 'Home'" class="filtro-precios">
                             <span class="etiqueta-contenido">Según tu presupuesto </span>
                             <div class="d-flex">
                                 <div class="mr">
@@ -65,6 +65,10 @@ import { ref } from 'vue';
 import carruselFiltro from './carrusel-filtro.vue';
 
 const IDSeleccionada = ref('')
+
+const propsFiltros = defineProps([
+    'vista'
+])
 
 const emisiones = defineEmits([
     'cerrarModal'

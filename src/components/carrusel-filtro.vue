@@ -188,7 +188,7 @@
 }
 
 .lista-filtros>>>.v-hl-container {
-    height: 70px;
+    height: 55px;
     margin-left: 10px !important;
     scroll-padding-left: 16px;
     scroll-padding-right: 16px;
