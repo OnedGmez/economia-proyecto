@@ -136,7 +136,6 @@ const cerrarModal = () => {
     emisiones('cerrarDetalles')
 }
 
-
 const calcularDias = () => {
     const diaInicio = new Date(fechaInicio.value)
     const diaFinal = new Date(fechaFinal.value)
@@ -158,6 +157,10 @@ const calcularDias = () => {
 .modal-header {
     border: none !important;
     padding: 10px 5px;
+}
+
+.modal-header .btn-close{
+    margin: 0 12px 0 auto  !important;
 }
 
 .modal-body {
