@@ -15,6 +15,7 @@
     border: 1px solid #6907f23f;
     max-width: 100%;
     width: auto;
+    flex: 1;
     transition: box-shadow 0.2s ease;
 }
 
