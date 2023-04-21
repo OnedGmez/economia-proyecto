@@ -217,7 +217,7 @@
 */
 @media (max-width: 768px) {
     .lista-filtros::before {
-        height: 10px;
+        height: 5px;
     }
 
     .lista-filtros {
@@ -227,11 +227,7 @@
 
     .lista-filtros .item-filtro {
         color: #000;
-        font-size: calc(.5em + .65vw);
-    }
-
-    .lista-filtros .item-filtro .icono-filtro {
-        width: 35%;
+        font-size: calc(.5em + .5vw);
     }
 
     .lista-filtros .item-filtro:hover {
