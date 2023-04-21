@@ -100,6 +100,7 @@ const mostrarDetalles = () => {
     color: #000;
     margin-left: 12px;
     font-size: calc(.5em + .65vw);
+    font-weight: 600;
 }
 
 .card .card-body .distancia {
