@@ -10,7 +10,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/iconos/services/breakfast.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 2</span>
@@ -114,7 +114,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" :src="rutaCategorias + 'casa-de-campo.svg'" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 15</span>
@@ -188,7 +188,7 @@
 }
 
 .lista-filtros>>>.v-hl-container {
-    height: 55px;
+    height: 65px;
     margin-left: 10px !important;
     scroll-padding-left: 16px;
     scroll-padding-right: 16px;
@@ -252,8 +252,6 @@ import VueHorizontal from "vue-horizontal";
 
 const store = generalStore()
 const IDSeleccionada = ref(false)
-const rutaCategorias = store.pathCategorias
-const rutaServicios = store.pathServicios
 
 const seleccionado = ref(false)
 
