@@ -4,7 +4,7 @@
             <topBar vista="RentaCar" />
             <div class="main container">
                 <div class="row">
-                    <tarjetaRentACar data="" @abrir-detalles="() => abrirModalDetalles('Pasar la data que se le pasa a la tarjeta')"/>
+                    <tarjetaRentACar vista="Rentacar" data="" @abrir-detalles="() => abrirModalDetalles('Pasar la data que se le pasa a la tarjeta')"/>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
 import { ref } from 'vue';
 
 import topBar from '@/components/complementos-componentes/top-bar.vue';
-import tarjetaRentACar from '@/components/tarjeta-rent-a-car.vue';
+import tarjetaRentACar from '@/components/tarjeta-informacion.vue';
 import modalDetallesCarro from '@/components/modal-detalles.vue';
 
 const informacionDetalleCarro = ref('')
@@ -46,6 +46,7 @@ const cerrarModalDetalles = () => {
 
 .pagina .main {
     position: relative;
+    margin-top: 15px;
 }
 </style>
   
