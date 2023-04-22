@@ -4,50 +4,33 @@
             <topBar vista="RentaCar" />
             <div class="main container">
                 <div class="row">
-                    <tarjetaCasas v-for="info in dataPrueba" :data="info" :key="info.idHome"
-                        @abrir-detalles="(detalle) => abrirModalDetalles(detalle)" />
+                    <tarjetaRentACar data="" @abrir-detalles="() => abrirModalDetalles('Pasar la data que se le pasa a la tarjeta')"/>
                 </div>
             </div>
         </div>
     </div>
+    <modalDetallesCarro v-if="mostrarDetallesCarro == true" :data="informacionDetalleCarro"
+      @cerrar-detalles="() => cerrarModalDetalles()" vista="RentaCar"/>
 </template>
   
 <script setup>
-import tarjetaCasas from '@/components/tarjeta-casa.vue'
+import { ref } from 'vue';
+
 import topBar from '@/components/complementos-componentes/top-bar.vue';
+import tarjetaRentACar from '@/components/tarjeta-rent-a-car.vue';
+import modalDetallesCarro from '@/components/modal-detalles.vue';
 
+const informacionDetalleCarro = ref('')
+const mostrarDetallesCarro = ref(false)
 
-const dataPrueba = [
-    {
-        idHome: 'h1-123sdad',
-        urlphoto: 'casashn9.png',
-        precio: '15000.00',
-        departamento: 'La Paz',
-        colonia: 'Prada'
-    },
-    {
-        idHome: 'h1-123sdaasdad',
-        urlphoto: 'casashn9.png',
-        precio: '15000.00',
-        departamento: 'La Paz',
-        colonia: 'Prada'
-    },
-    {
-        idHome: 'h1-123sdad',
-        urlphoto: 'casashn9.png',
-        precio: '15000.00',
-        departamento: 'La Paz',
-        colonia: 'Prada'
-    },
-    {
-        idHome: 'h1-123sdad',
-        urlphoto: 'casashn9.png',
-        precio: '15000.00',
-        departamento: 'La Paz',
-        colonia: 'Prada'
-    }
-]
+const abrirModalDetalles = (data) => {
+  mostrarDetallesCarro.value = !mostrarDetallesCarro.value
+  informacionDetalleCarro.value = data
+}
 
+const cerrarModalDetalles = () => {
+    mostrarDetallesCarro.value = false
+}
 
 </script>
   
