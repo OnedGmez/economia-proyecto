@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div v-if="vista == 'RentaCar'" class="img-carro">
-                            <img src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/photos/cars/carro_prueba.png"
+                            <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
                                 alt="img" class="img-fluid">
                         </div>
                         <div v-if="vista == 'Home'" class="informacion-ubicacion">
@@ -469,13 +469,11 @@ const calcularDias = () => {
     text-align: start;
 }
 
-/**Retocado */
 .modal-body .informacion .icono {
     font-size: calc(.7em + .65vw);
     color: #ff475e;
 }
 
-/**Retocado */
 .modal-body .informacion .informacion-ubicacion .localizacion .ubicacion,
 .marca-carro {
     margin-left: 12px;
@@ -483,7 +481,10 @@ const calcularDias = () => {
     font-weight: 600;
 }
 
-/**Retocado */
+.marca-carro {
+    font-size: calc(.6em + 1vw);
+}
+
 .modal-body .informacion .informacion-ubicacion .distancia,
 .categoria-tipo-carro,
 .anio-carro,
@@ -543,7 +544,6 @@ const calcularDias = () => {
     margin-bottom: 15px;
 }
 
-/**Retocado */
 .modal-body .informacion .detalles-reservacion .precio-renta .precio {
     margin-left: 12px;
     font-size: calc(.5em + .58vw);
