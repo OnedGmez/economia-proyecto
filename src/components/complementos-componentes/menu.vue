@@ -79,6 +79,7 @@
 .estatica-mobile-bottom .item-menu:hover,
 .seleccionado {
   color: #ff475e !important;
+  font-weight: 600 !important;
 }
 
 .estatica-mobile-bottom .icono {
@@ -86,8 +87,8 @@
 }
 
 .estatica-mobile-bottom .text-btn {
-  font-weight: 500;
-  font-size: calc(.7em + .45vw);
+  font-weight: 400;
+  font-size: calc(.7em + .35vw);
 }
 
 .estatica-mobile-bottom {
@@ -96,7 +97,7 @@
   bottom: 0;
   z-index: 1;
   background-color: #fff;
-  height: 60px;
+  height: 55px;
   left: 4.5%;
   width: 90%;
   box-shadow: 0px 1px 10px #8d8d8d52;
@@ -110,11 +111,11 @@
   visibility: hidden;
 }
 
-.icono-secundario{
+.icono-secundario {
   font-size: calc(.45em + .65vw);
-    position: relative;
-    bottom: 10px;
-    left: 2px;
+  position: relative;
+  bottom: 10px;
+  left: 2px;
 }
 
 /*
