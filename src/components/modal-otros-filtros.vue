@@ -8,7 +8,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="filtro-servicios">
+                    <div v-if="vista == 'Home'" class="filtro-servicios">
                         <span class="etiqueta-contenido">Selecciona un servicio: </span>
                         <carruselFiltro ubicacion="Modal" />
                     </div>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <div v-if="vista == 'Home'" class="filtro-precios">
+                        <div class="filtro-precios">
                             <span class="etiqueta-contenido">Según tu presupuesto </span>
                             <div class="d-flex">
                                 <div class="mr">
@@ -191,6 +191,7 @@ const seleccionarRating = (rating) => {
     background-color: #ff475e;
     color: #fff;
 }
+
 
 /*
   * Configuramos el media query para dispositivo celulares 
