@@ -1,19 +1,27 @@
 <template>
   <div v-if="celular == true" :class="[scrolleando == true ? 'oculto' : '']" class="d-flex estatica-mobile-bottom">
-    <div :class="{ seleccionado: opSeleccionada == '/' }" @click="irPrincipal" class="item-menu home-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/' }" @click="navegar('')" class="item-menu home-btn">
       <div class="icono-home">
-        <span class="icono"><font-awesome-icon icon="house" /> </span>
+        <span class="icono"><font-awesome-icon icon="house-chimney" /> </span>
       </div>
       <div class="text-btn">
         <span>Home</span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navRentaCar" class="item-menu rentacar-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')" class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="car" /> </span>
       </div>
       <div class="text-btn">
         <span>RentAcar</span>
+      </div>
+    </div>
+    <div :class="{ seleccionado: opSeleccionada == '/viajes' }" @click="navegar('viajes')" class="item-menu rentacar-btn">
+      <div class="icono-rentAcar">
+        <span class="icono"><font-awesome-icon icon="location-pin-lock" /> </span>
+      </div>
+      <div class="text-btn">
+        <span>Viajes</span>
       </div>
     </div>
     <div @click="" class="item-menu taxi-btn">
@@ -39,12 +47,12 @@
 
 
   <div v-if="celular == false" class="d-flex estatica-lg-bottom">
-    <div :class="{ seleccionado: opSeleccionada == '/' }" @click="irPrincipal" class="item-menu home-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/' }" @click="navegar('')" class="item-menu home-btn">
       <div class="icono-home">
-        <span class="icono"><font-awesome-icon icon="house" /> </span>
+        <span class="icono"><font-awesome-icon icon="house-chimney" /> </span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navRentaCar" class="item-menu rentacar-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')" class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="car" /> </span>
       </div>
@@ -189,12 +197,8 @@ const lastScroll = ref(0);
  * dev: Oned Gómez 
  * Función que está bindeada al botón home en la vista de celular, redireccionará a la página principal o hará la recarga de la página
  */
-const irPrincipal = () => {
-  router.push('/')
-}
-
-const navRentaCar = () => {
-  router.push('/rentacar')
+const navegar = (nombre) => {
+  router.push('/' + nombre)
 }
 
 //Evento que sirve para escuchar el scroll de la página
