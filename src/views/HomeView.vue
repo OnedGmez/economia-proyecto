@@ -5,24 +5,27 @@
       <div class="main container">
         <div class="row">
           <tarjetaCasas v-for="info in dataPrueba" :data="info" :key="info.idHome"
-            @abrir-detalles="() => abrirModalDetalles(info)" />
+            @abrir-detalles="() => abrirModalDetalles(info)" vista="Home"/>
         </div>
       </div>
     </div>
     <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa"
-      @cerrar-detalles="() => cerrarModalDetalles()" vista="Home"/>
+      @cerrar-detalles="() => cerrarModalDetalles()" vista='Home'/>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { generalStore } from '@/store';
 
-import tarjetaCasas from '@/components/tarjeta-casa.vue'
+import tarjetaCasas from '@/components/tarjeta-informacion.vue'
 import modalDetallesCasa from '@/components/modal-detalles.vue';
 import topBar from '@/components/complementos-componentes/top-bar.vue';
 
 const mostrarDetallesCasa = ref(false)
 const informacionDetalleCasa = ref([{}])
+
+const store = generalStore()
 
 
 const dataPrueba = [
@@ -56,6 +59,19 @@ const dataPrueba = [
   }
 ]
 
+/**
+ * dev: Oned Gómez
+ * Función para subir los archivos al servidor de archivos
+ * @param {*} event 
+ */
+const subirArchivo = async (event) =>{
+  const nombre = event.target.files[0].name
+  const file = event.target.files[0]
+  const carpeta = 'icons/categories'
+  const ruta = await store.subirArchivo(nombre, carpeta, file)
+  console.log(ruta)
+}
+
 const abrirModalDetalles = (data) => {
   mostrarDetallesCasa.value = !mostrarDetallesCasa.value
   informacionDetalleCasa.value = data
@@ -78,6 +94,7 @@ const cerrarModalDetalles = () => {
 
 .pagina .main {
   position: relative;
+  margin-top: 15px;
 }
 
 </style>
