@@ -27,6 +27,12 @@
                 </div>
             </button>
         </div>
+        <div v-if="vista == 'Home'" @click="" class="button">
+            Nueva casa
+        </div>
+        <div v-if="vista == 'RentaCar'" @click="" class="button">
+            Nuevo vehículo
+        </div>
     </div>
     <accionesSesion v-if="mostrandoModalAccionesSesion == true"
         @desplegar-modal="(nombreModal) => { desplegarSubModal(nombreModal), desplegarModalSesion() }" />
@@ -122,6 +128,26 @@
     font-weight: 600;
 }
 
+.button {
+    background: linear-gradient(90deg, #ff475e, #6907f2);
+    width: 17%;
+    border-radius: calc(1em + 0.1vw);
+    color: #fff;
+    font-weight: 600;
+    font-size: calc(.5em + .65vw);
+    text-align: center;
+    font-family: 'fredoka-family';
+    transition: all 300ms ease-in;
+    margin-top: 10px;
+    margin-left: 35px;
+}
+
+.button:hover {
+    cursor: pointer;
+    background: linear-gradient(90deg, #ff475e, #ff475e);
+    transition: all 300ms ease-out;
+}
+
 /*
     * Configuramos el media query para dispositivo celulares 
    */
@@ -149,6 +175,12 @@
     .estatica-top .cabecera .busqueda .filtro-btn .icono-boton {
         font-size: calc(1em + .65vw) !important;
         color: #6907f2 !important;
+    }
+
+    .button{
+        width: 30%;
+        font-size: calc(.65em + 1vw);
+        margin-left: 25px;
     }
 }
 </style>
