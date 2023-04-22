@@ -6,6 +6,7 @@
         </div>
         <input v-if="vista == 'Home'" type="text" name="barra" placeholder="¿Que ciudad deseas visitar?" id="input-barra">
         <input v-if="vista == 'RentaCar'" type="text" name="barra" placeholder="¿Buscas una marca especifica?" id="input-barra">
+        <input v-if="vista == 'Reservas'" type="text" name="barra" placeholder="Encuentra la ciudad o vehículo que más te gustó" id="input-barra">
     </div>
 </template>
 
