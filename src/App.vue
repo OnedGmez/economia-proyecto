@@ -24,6 +24,7 @@ body {
   color: #2c3e50;
   height: 100%;
   width: auto;
+  font-family: 'fredoka-family';
 }
 
 nav {
@@ -48,8 +49,8 @@ nav a.router-link-exact-active {
 }
 
 .etiqueta-contenido {
-  font-size: calc(.5em + .45vw);
-  font-weight: 600;
+  font-size: calc(.5em + .4vw);
+  font-weight: 400;
 }
 
 a{
@@ -65,7 +66,7 @@ a{
 @media (max-width: 768px) {
 
   .etiqueta-contenido {
-    font-size: calc(.65em + .45vw);
+    font-size: calc(.65em + .5vw);
   }
 
 }
