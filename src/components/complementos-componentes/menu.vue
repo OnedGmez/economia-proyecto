@@ -16,12 +16,12 @@
         <span>RentAcar</span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/viajes' }" @click="navegar('viajes')" class="item-menu rentacar-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/reservas' }" @click="navegar('reservas')" class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="location-pin-lock" /> </span>
       </div>
       <div class="text-btn">
-        <span>Viajes</span>
+        <span>Reservas</span>
       </div>
     </div>
     <div @click="" class="item-menu taxi-btn">
