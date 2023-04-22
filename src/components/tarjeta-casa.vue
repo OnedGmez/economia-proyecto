@@ -91,7 +91,7 @@ const mostrarDetalles = () => {
 
 .card .card-body .icono {
     color: #ff475e;
-    font-size: calc(.6em + 1vw);
+    font-size: calc(.5em + .8vw);
     justify-content: center;
     display: flex;
 }
@@ -105,7 +105,7 @@ const mostrarDetalles = () => {
 
 .card .card-body .distancia {
     color: #8e8e8e;
-    font-size: calc(.5em + .45vw);
+    font-size: calc(.5em + .5vw);
     margin-left: 27px;
 }
 
@@ -116,8 +116,8 @@ const mostrarDetalles = () => {
 }
 
 .card .card-body .precio-renta .precio {
-    font-weight: 600;
-    font-size: calc(.5em + .55vw);
+    font-weight: 500;
+    font-size: calc(.5em + .5vw);
     margin-left: 12px;
 }
 
@@ -151,7 +151,7 @@ const mostrarDetalles = () => {
 }
 
 .card .card-body .detalles-casa .nombre-tag {
-    font-size: calc(.5em + .25vw);
+    font-size: calc(.5em + .3vw);
     margin-left: 12px;
 }
 
@@ -172,26 +172,70 @@ const mostrarDetalles = () => {
 }
 
 /*
-  * Configuramos el media query para dispositivo celulares 
+  * Configuramos el media query para Tablets 
 */
 @media (max-width: 768px) {
     .card .card-body .icono {
-        font-size: calc(1em + .75vw);
+        font-size: calc(1em + .5vw);
     }
 
     .card .card-body .localizacion .ubicacion {
-        font-size: calc(.8em + .7vw);
+        font-size: calc(.7em + .65vw);
         margin-left: 10px;
     }
 
     .card .card-body .distancia {
         color: #8e8e8e;
-        font-size: calc(.65em + .45vw);
+        font-size: calc(.6em + .65vw);
         margin-left: 25px;
     }
 
     .card .card-body .precio-renta .precio {
-        font-size: calc(.8em + .6vw);
+        font-size: calc(.6em + .65vw);
+        margin-left: 10px;
+    }
+
+    .card .card-body .detalles-casa .img-detalles {
+        width: 33px;
+    }
+
+    .card .card-body .detalles-casa .nombre-tag {
+        font-size: calc(.5em + .55vw);
+        margin-left: 10px;
+    }
+
+    .card .card-body .detalles-casa .some-services .img-servicio {
+        width: 30px;
+    }
+
+    .card .card-body .detalles-casa .some-services .nombre-servicio {
+        margin-left: 0px;
+        font-size: calc(.5em + .55vw);
+    }
+}
+
+
+/*
+  * Configuramos el media query para dispositivo celulares 
+*/
+@media (max-width: 576px) {
+    .card .card-body .icono {
+        font-size: calc(1em + .5vw);
+    }
+
+    .card .card-body .localizacion .ubicacion {
+        font-size: calc(.8em + 1vw);
+        margin-left: 10px;
+    }
+
+    .card .card-body .distancia {
+        color: #8e8e8e;
+        font-size: calc(.65em + .95vw);
+        margin-left: 25px;
+    }
+
+    .card .card-body .precio-renta .precio {
+        font-size: calc(.65em + .95vw);
         margin-left: 10px;
     }
 
