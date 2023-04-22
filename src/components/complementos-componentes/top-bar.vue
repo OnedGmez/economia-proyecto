@@ -16,7 +16,7 @@
             </div>
             <menuCelular @abrir-sesion="(accion) => desplegarSubModal(accion)" :celular="mostrarMenuCel" @desplegar-modal-sesion="()=>desplegarModalSesion()" />
         </div>
-        <div class="d-flex zona-filtros">
+        <div v-if="vista !=='Viajes'" class="d-flex zona-filtros">
             <zonaFiltros />
             <button v-if="mostrarMenuCel == false" @click="desplegarOtrosFiltros" class="d-flex btn">
                 <div class="icono-boton">
@@ -99,7 +99,6 @@
     width: 100%;
     padding: 0 35px;
     z-index: -1;
-    margin-bottom: 15px;
     align-items: center;
     justify-content: space-between;
 }
@@ -130,7 +129,6 @@
     .estatica-top .zona-filtros {
         padding: 0 !important;
         box-shadow: 0px 3px 5px #82828252;
-        margin-bottom: 15px;
     }
 
     .estatica-top .cabecera {
