@@ -1,6 +1,6 @@
 <template>
-    <div class="contenedor">
-        <div class="col-6 card">
+    <div class="col-6 col-md-4 col-lg-3 contenedor">
+        <div @click="abrirDetalles" class="card">
             <div class="d-flex card-body">
                 <div class="img-carro">
                     <img src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/photos/cars/carro_prueba.png" alt="img"
@@ -268,6 +268,15 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
     padding: 0;
 }
 
+.card:hover{
+    cursor: pointer;
+}
+
+.contenedor{
+    margin-bottom: 12px;
+    padding: 0 6px;
+}
+
 .separador{
     margin-bottom: 10px !important;
 }
@@ -285,6 +294,7 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
 
 .card-body .img-carro img {
     margin: auto;
+    padding: 0 5px;
 }
 
 .card-body .zona-informacion{
@@ -303,11 +313,12 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
 
 .card-body .zona-informacion .marca-carro {
     font-weight: 600;
-    font-size: calc(1em + 1vw);
+    font-size: calc(.65em + 1vw);
 }
 
 .card-body .zona-informacion .categoria-tipo-carro, .anio-carro {
-    font-size: calc(.5em + .5vw);
+    font-size: calc(.5em + .4vw);
+    color: #8e8e8e;
 }
 
 .card-body .zona-informacion .categoria-tipo-carro span:first-child{
@@ -381,4 +392,17 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
 </style>
 
 <script setup>
+
+const propsTarjetaRent = defineProps([
+    'data'
+])
+
+const emisiones = defineEmits([
+    'abrirDetalles'
+])
+
+const abrirDetalles = () =>{
+    emisiones('abrirDetalles')
+}
+
 </script>
