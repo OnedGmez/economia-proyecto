@@ -8,6 +8,10 @@
             <span>Iniciar Sesión</span>
         </div>
         <span class="separador"></span>
+        <div @click="irViajes" class="opcion">
+            <span>Viajes</span>
+        </div>
+        <span class="separador"></span>
         <div class="opcion">
             <span>Cerrar Sesión</span>
         </div>
@@ -15,11 +19,16 @@
 </template>
 
 <script setup>
+import router from '@/router';
 
 const emisiones = defineEmits(['desplegar-modal'])
 
 const desplegarModal = (nombreModal) =>{
     emisiones('desplegar-modal', nombreModal)
+}
+
+const irViajes = () => {
+    router.push('/viajes')
 }
 </script>
 
