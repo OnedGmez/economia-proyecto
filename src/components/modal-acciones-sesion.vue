@@ -9,7 +9,7 @@
         </div>
         <span class="separador"></span>
         <div @click="irViajes" class="opcion">
-            <span>Viajes</span>
+            <span>Reservas</span>
         </div>
         <span class="separador"></span>
         <div class="opcion">
@@ -28,7 +28,7 @@ const desplegarModal = (nombreModal) =>{
 }
 
 const irViajes = () => {
-    router.push('/viajes')
+    router.push('/reservas')
 }
 </script>
 
