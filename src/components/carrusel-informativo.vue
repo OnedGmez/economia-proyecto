@@ -10,7 +10,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/services/breakfast.svg" alt="Icono">
+                <img class="img-fluid" src="https://rentaway-file-serve.s3.amazonaws.com/rentaway/iconos/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre servicio 2</span>
