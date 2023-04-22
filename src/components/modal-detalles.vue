@@ -1,6 +1,6 @@
 <template>
     <div @keyup.esc="cerrarModal()" class="modal fade show" id="exampleModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">
+        aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true" style="display: block">
         <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -469,11 +469,13 @@ const calcularDias = () => {
     text-align: start;
 }
 
+/**Retocado */
 .modal-body .informacion .icono {
     font-size: calc(.7em + .65vw);
     color: #ff475e;
 }
 
+/**Retocado */
 .modal-body .informacion .informacion-ubicacion .localizacion .ubicacion,
 .marca-carro {
     margin-left: 12px;
@@ -481,6 +483,7 @@ const calcularDias = () => {
     font-weight: 600;
 }
 
+/**Retocado */
 .modal-body .informacion .informacion-ubicacion .distancia,
 .categoria-tipo-carro,
 .anio-carro,
@@ -488,6 +491,10 @@ const calcularDias = () => {
     margin-left: 28px;
     font-size: calc(.5em + .58vw);
     color: #8e8e8e;
+}
+
+.categoria-tipo-carro span:last-child {
+    font-weight: 600;
 }
 
 .modal-body .informacion .descripcion-casa {
@@ -536,6 +543,7 @@ const calcularDias = () => {
     margin-bottom: 15px;
 }
 
+/**Retocado */
 .modal-body .informacion .detalles-reservacion .precio-renta .precio {
     margin-left: 12px;
     font-size: calc(.5em + .58vw);
@@ -652,7 +660,7 @@ const calcularDias = () => {
     margin-right: 5px;
 }
 
-.caracteristicas-carro .img-caracteristica g{
+.caracteristicas-carro .img-caracteristica g {
     fill: #ff475e;
     stroke: #ff475e;
 }
@@ -666,10 +674,99 @@ const calcularDias = () => {
 }
 
 /*
-  * Configuramos el media query para dispositivo celulares 
+  * Configuramos el media query para Tablets 
  */
 @media (max-width: 768px) {
     .modal-footer button {
+        font-size: calc(.7em + .65vw);
+    }
+
+    .modal-body .informacion .informacion-ubicacion .localizacion .ubicacion,
+    .marca-carro {
+        margin-left: 12px;
+        font-size: calc(1em + .8vw);
+        font-weight: 600;
+    }
+
+    .modal-body .informacion .informacion-ubicacion .distancia,
+    .categoria-tipo-carro,
+    .anio-carro,
+    .color-carro {
+        margin-left: 27px;
+        font-size: calc(.75em + .7vw);
+    }
+
+    .modal-body .informacion .descripcion-casa .detalle .descripcion {
+        font-size: calc(.6em + .65vw);
+    }
+
+    .modal-body .informacion .icono {
+        font-size: calc(.8em + .85vw);
+    }
+
+    .modal-body .informacion .detalles-reservacion .precio-renta .precio {
+        font-size: calc(.75em + .6vw);
+    }
+
+    .modal-body .informacion .detalles-reservacion {
+        margin-top: 15px;
+    }
+
+    .modal-body .informacion .detalles-reservacion .dates {
         font-size: calc(.6em + .45vw);
     }
-}</style>
+
+    .modal-body .informacion .detalles-reservacion .montos .descripcion {
+        font-size: calc(.65em + .5vw);
+    }
+}
+
+/*
+  * Configuramos el media query para dispositivo celulares 
+ */
+@media (max-width: 576px) {
+    .modal-footer button {
+        font-size: calc(.6em + .5vw);
+    }
+
+    .modal-body .informacion .informacion-ubicacion .localizacion .ubicacion,
+    .marca-carro {
+        margin-left: 12px;
+        font-size: calc(1em + .65vw);
+        font-weight: 600;
+    }
+
+    .modal-body .informacion .informacion-ubicacion .distancia,
+    .categoria-tipo-carro,
+    .anio-carro,
+    .color-carro {
+        margin-left: 27px;
+        font-size: calc(.75em + .65vw);
+    }
+
+    .modal-body .informacion .descripcion-casa .detalle .descripcion {
+        font-size: calc(.6em + .65vw);
+    }
+
+    .modal-body .informacion .icono {
+        font-size: calc(.8em + .85vw);
+    }
+
+    .modal-body .informacion .detalles-reservacion .precio-renta .precio {
+        font-size: calc(.75em + .6vw);
+    }
+
+    .modal-body .informacion .detalles-reservacion {
+        margin-top: 15px;
+    }
+
+    .modal-body .informacion .detalles-reservacion .dates {
+        font-size: calc(.6em + .52vw);
+    }
+
+    .modal-body .informacion .detalles-reservacion .montos .descripcion {
+        font-size: calc(.65em + .5vw);
+    }
+
+}
+</style>
