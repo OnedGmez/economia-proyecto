@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="busqueda">
-                <barraBusqueda />
+                <barraBusqueda :vista="vista"/>
                 <div v-if="mostrarMenuCel == true" @click="desplegarOtrosFiltros" class="filtro-btn">
                     <div class="icono-boton">
                         <span class="icono"> <font-awesome-icon icon="sliders" /> </span>
@@ -126,7 +126,7 @@
 /*
     * Configuramos el media query para dispositivo celulares 
    */
-   @media (max-width: 768px) {
+   @media (max-width: 991.5px) {
     .estatica-top .zona-filtros {
         padding: 0 !important;
         box-shadow: 0px 3px 5px #82828252;
