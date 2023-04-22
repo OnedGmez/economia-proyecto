@@ -130,7 +130,7 @@
 
 .button {
     background: linear-gradient(90deg, #ff475e, #6907f2);
-    width: 17%;
+    width: 14%;
     border-radius: calc(1em + 0.1vw);
     color: #fff;
     font-weight: 600;
