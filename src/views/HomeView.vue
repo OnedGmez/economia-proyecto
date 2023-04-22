@@ -5,12 +5,12 @@
       <div class="main container">
         <div class="row">
           <tarjetaCasas v-for="info in dataPrueba" :data="info" :key="info.idHome"
-            @abrir-detalles="(detalle) => abrirModalDetalles(detalle)" />
+            @abrir-detalles="() => abrirModalDetalles(info)" />
         </div>
       </div>
     </div>
     <modalDetallesCasa v-if="mostrarDetallesCasa == true" :data="informacionDetalleCasa"
-      @cerrar-detalles="() => cerrarModalDetalles()" />
+      @cerrar-detalles="() => cerrarModalDetalles()" vista="Home"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@
 import { ref } from 'vue';
 
 import tarjetaCasas from '@/components/tarjeta-casa.vue'
-import modalDetallesCasa from '@/components/modal-detalles-casa.vue';
+import modalDetallesCasa from '@/components/modal-detalles.vue';
 import topBar from '@/components/complementos-componentes/top-bar.vue';
 
 const mostrarDetallesCasa = ref(false)
