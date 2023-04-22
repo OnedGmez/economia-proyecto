@@ -16,7 +16,7 @@
             </div>
             <menuCelular @abrir-sesion="(accion) => desplegarSubModal(accion)" :celular="mostrarMenuCel" @desplegar-modal-sesion="()=>desplegarModalSesion()" />
         </div>
-        <div v-if="vista !=='Viajes'" class="d-flex zona-filtros">
+        <div class="d-flex zona-filtros">
             <zonaFiltros />
             <button v-if="mostrarMenuCel == false" @click="desplegarOtrosFiltros" class="d-flex btn">
                 <div class="icono-boton">
