@@ -2,7 +2,7 @@
     <div v-if="vista == 'Home'" class="col-sm-6 col-md-4 col-lg-3 contenedor-tarjeta">
         <div @click="mostrarDetalles" class="card card-casa">
             <div class="img">
-                <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])" class="img-fluid card-img-top"
+                <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z" class="img-fluid card-img-top"
                     alt="...">
             </div>
             <div class="card-body">
