@@ -34,7 +34,7 @@
                         </div>
                         <div class="d-flex servicio">
                             <div class="img-servicio">
-                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/clean-services.svg"
+                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/clean-service.svg?t=2023-04-23T22%3A45%3A45.761Z"
                                     alt="nombre servicio">
                             </div>
                             <span class="nombre-servicio">Limpieza</span>
