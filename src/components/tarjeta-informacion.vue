@@ -20,7 +20,7 @@
                 <div class="detalles-casa d-flex">
                     <div class="tag">
                         <div class="img-detalles">
-                            <img class="img-fluid" src="../assets/icons/categories/en-playa.svg" alt="nombre tag">
+                            <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/tags/isla.svg?t=2023-04-23T22%3A34%3A48.914Z" alt="nombre tag">
                         </div>
                         <span class="nombre-tag">Frente a la playa</span>
                     </div>
@@ -28,13 +28,13 @@
                     <div class="d-flex some-services">
                         <div class="d-flex servicio">
                             <div class="img-servicio">
-                                <img class="img-fluid" src="../assets/icons/services/breakfast.svg" alt="nombre servicio">
+                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="nombre servicio">
                             </div>
                             <span class="nombre-servicio">Desayuno</span>
                         </div>
                         <div class="d-flex servicio">
                             <div class="img-servicio">
-                                <img class="img-fluid" src="../assets/icons/services/clean-service.svg"
+                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/clean-services.svg"
                                     alt="nombre servicio">
                             </div>
                             <span class="nombre-servicio">Limpieza</span>
@@ -330,7 +330,7 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
                         <span class="separador"></span>
                         <div class="tag">
                             <div class="img-detalles">
-                                <img class="img-fluid" src="../assets/icons/categories/en-playa.svg" alt="nombre tag">
+                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="nombre tag">
                             </div>
                             <span class="nombre-tag">Frente a la playa</span>
                         </div>

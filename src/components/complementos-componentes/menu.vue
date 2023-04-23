@@ -24,7 +24,7 @@
         <span>Reservas</span>
       </div>
     </div>
-    <div @click="" class="item-menu taxi-btn">
+    <div  :class="{ seleccionado: opSeleccionada == '/llevame' }" @click="navegar('llevame')" class="item-menu taxi-btn">
       <div class="icono-taxi">
         <span class="icono-secundario"><font-awesome-icon icon="location-dot" /> </span>
         <span class="icono"><font-awesome-icon icon="taxi" /> </span>
@@ -57,7 +57,7 @@
         <span class="icono"><font-awesome-icon icon="car" /> </span>
       </div>
     </div>
-    <div @click="" class="item-menu taxi-btn">
+    <div @click="navegar('llevame')" class="item-menu taxi-btn">
       <div class="icono-taxi">
         <span class="icono-secundario"><font-awesome-icon icon="location-dot" /> </span>
         <span class="icono"><font-awesome-icon icon="taxi" /> </span>

@@ -1,5 +1,5 @@
 <template>
-  <div @scroll="scrollOn" class="home">
+  <div class="home">
     <div class="pagina">
       <topBar vista="Home" />
       <div class="main container">

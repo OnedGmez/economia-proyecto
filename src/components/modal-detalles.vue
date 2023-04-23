@@ -12,27 +12,27 @@
                         <div v-if="vista == 'Home'" class="d-flex mosaico">
                             <div class="columna-prin">
                                 <div class="img-casa">
-                                    <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])"
+                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
                                         class="img-fluid img-top" alt="...">
                                 </div>
                             </div>
                             <div class="columna-secundaria">
                                 <div class="img-casa">
-                                    <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])"
+                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
                                         class="img-fluid img-top" alt="...">
                                 </div>
                                 <div class="img-casa">
-                                    <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])"
+                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
                                         class="img-fluid img-top" alt="...">
                                 </div>
                             </div>
                             <div class="columna-tercearia">
                                 <div class="img-casa">
-                                    <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])"
+                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
                                         class="img-fluid img-top" alt="...">
                                 </div>
                                 <div class="img-casa">
-                                    <img :src="require('../assets/img/img-pruebas/' + data['urlphoto'])"
+                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
                                         class="img-fluid img-top" alt="...">
                                 </div>
                             </div>

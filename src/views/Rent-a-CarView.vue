@@ -1,5 +1,5 @@
 <template>
-    <div @scroll="scrollOn" class="rentacar">
+    <div class="rentacar">
         <div class="pagina">
             <topBar vista="RentaCar" />
             <div class="main container">

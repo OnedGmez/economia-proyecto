@@ -2,7 +2,7 @@
     <VueHorizontal :class="[ubicacion == 'Modal' ? 'widthModal' : '']" responsive class="lista-filtros">
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 1</span>
@@ -18,7 +18,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 3</span>
@@ -26,7 +26,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 4</span>
@@ -34,7 +34,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 5</span>
@@ -42,7 +42,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/en-playa.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 6</span>
@@ -50,7 +50,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 7</span>
@@ -58,7 +58,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 8</span>
@@ -66,7 +66,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/fte_rio.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 9</span>
@@ -74,7 +74,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 10</span>
@@ -82,7 +82,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 11</span>
@@ -90,7 +90,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 12</span>
@@ -98,7 +98,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 13</span>
@@ -106,7 +106,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="../assets/icons/categories/cabania.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 14</span>
@@ -114,7 +114,7 @@
         </div>
         <div class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
+                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
             </div>
             <div class="nombre-filtro">
                 <span>Nombre filtro 15</span>
