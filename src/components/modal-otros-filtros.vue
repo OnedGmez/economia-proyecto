@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div v-if="vista == 'Home'" class="filtro-servicios">
                         <span class="etiqueta-contenido">Selecciona un servicio: </span>
-                        <carruselFiltro ubicacion="Modal" />
+                        <carruselFiltro ubicacion="Modal" :data="dataFiltro" />
                     </div>
                     <span class="separador"></span>
                     <div class="d-flex filtros-principales">
@@ -65,10 +65,14 @@ import { ref } from 'vue';
 import carruselFiltro from './carrusel-filtro.vue';
 
 const IDSeleccionada = ref('')
+const dataFiltro = ref('')
 
 const propsFiltros = defineProps([
-    'vista'
+    'vista',
+    'data'
 ])
+
+dataFiltro.value = (propsFiltros.data).filter(filtro => filtro.itemname == 'Casa')
 
 const emisiones = defineEmits([
     'cerrarModal'

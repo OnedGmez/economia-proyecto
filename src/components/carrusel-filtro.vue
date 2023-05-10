@@ -1,123 +1,11 @@
 <template>
     <VueHorizontal :class="[ubicacion == 'Modal' ? 'widthModal' : '']" responsive class="lista-filtros">
-        <div class="item-filtro">
+        <div class="item-filtro" v-for="filtro in data" @click="filtrar(filtro['name'])">
             <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
+                <img class="img-fluid" :src="filtro['icono']" alt="Icono">
             </div>
             <div class="nombre-filtro">
-                <span>Nombre filtro 1</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 2</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 3</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 4</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 5</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 6</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 7</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 8</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 9</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 10</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 11</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 12</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 13</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 14</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre filtro 15</span>
+                <span>{{ filtro['name'] }}</span>
             </div>
         </div>
     </VueHorizontal>
@@ -130,8 +18,8 @@
     flex-direction: column;
 }
 
-.widthModal{
-    max-width: 100%!important;
+.widthModal {
+    max-width: 100% !important;
 }
 
 .lista-filtros::before {
@@ -172,7 +60,7 @@
 }
 
 .lista-filtros .item-filtro .icono-filtro {
-    width: 32%;
+    width: 32px;
     opacity: 0.5155;
     transition: opacity 180ms ease-in-out;
 }
@@ -192,6 +80,7 @@
     margin-left: 10px !important;
     scroll-padding-left: 16px;
     scroll-padding-right: 16px;
+    align-items: center;
 }
 
 .lista-filtros>>>.v-hl-btn svg {
@@ -240,18 +129,28 @@
 
     .lista-filtros>>>.v-hl-container {
         margin-left: 0 !important;
-        height: 55px!important;
+        height: 55px !important;
     }
 }
 </style>
 
 <script setup>
+
 import { ref } from "vue";
 import { generalStore } from '@/store/index.js';
 import VueHorizontal from "vue-horizontal";
+import { supabase } from "@/lib/supabaseClient";
 
 const store = generalStore()
+const emisiones = defineEmits([
+    'filtrar'
+])
 const IDSeleccionada = ref(false)
+const dataFiltro = ref([{}])
+
+const filtrar = (filtro) => {
+    emisiones('filtrar', filtro)
+}
 
 const seleccionado = ref(false)
 
@@ -259,4 +158,5 @@ const propsCarrusel = defineProps([
     'data',
     'ubicacion'
 ])
+
 </script>

@@ -1,123 +1,11 @@
 <template>
     <VueHorizontal responsive class="lista-filtros">
-        <div class="item-filtro">
+        <div v-for="servicio of data" class="item-filtro">
             <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
+                <img class="img-fluid" :src="servicio['icono']" alt="Icono">
             </div>
             <div class="nombre-filtro">
-                <span>Nombre servicio 1</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 2</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 3</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 4</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 5</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 6</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 7</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 8</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 9</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 10</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 11</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 12</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 13</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 14</span>
-            </div>
-        </div>
-        <div class="item-filtro">
-            <div class="icono-filtro">
-                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="Icono">
-            </div>
-            <div class="nombre-filtro">
-                <span>Nombre servicio 15</span>
+                <span>{{ servicio['servicename'] }}</span>
             </div>
         </div>
     </VueHorizontal>
@@ -159,7 +47,7 @@
 }
 
 .lista-filtros .item-filtro .icono-filtro {
-    width: 32%;
+    width: 32px;
     transition: opacity 180ms ease-in-out;
 }
 
@@ -217,7 +105,7 @@
     }
 
     .lista-filtros .item-filtro .icono-filtro {
-        width: 35%;
+        width: 35px;
     }
 
     .lista-filtros .item-filtro:hover {

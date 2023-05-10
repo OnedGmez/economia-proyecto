@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watchEffect } from 'vue'
+import { usuarioStore } from './user.js';
 import { supabase } from '@/lib/supabaseClient'
 import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -14,14 +15,19 @@ let marcadorLocalizacionfinal = mapboxgl.Marker
 let marcadorUber = mapboxgl.Marker
 
 localStorage.setItem('ruta-generada-bool', false)
-localStorage.setItem('uber-buscado-bool', false) || localStorage.setItem('uber-buscado-bool', false)
-'c'
+localStorage.setItem('uber-buscado-bool', false)
 const distanciaViaje = ref('')
 const duracionViaje = ref('')
+const dataNoFiltradaCasas = ref('')
+const dataCompletaCasas = ref([])
+const dataTags = ref('')
+const ubicacionCasa = ref([])
 
 export const generalStore = defineStore('store', () => {
 
-  const cargarMapa = (contenedor, ubicacionCarga, valorZoom) => {
+  const userStore = usuarioStore()
+
+  const cargarMapa = (contenedor, ubicacionCarga, valorZoom, zona) => {
     map = new mapboxgl.Map({
       container: contenedor, // container ID
       style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
@@ -31,8 +37,19 @@ export const generalStore = defineStore('store', () => {
     //const popUpLocalizacion = new Mapboxgl.Popup().setLngLat([-74.5, 40]).setHTML(`<p>Yo</p>`).addTo(map) PERSONALIZAR
     marcadorLocalizacion = new mapboxgl.Marker({
       color: '#6907f2',
-      draggable: true
+      draggable: false
     }).setLngLat(ubicacionCarga).addTo(map)
+
+    if (zona == 'Casa') {
+      map.on('click', (e) => {
+        ubicacionCasa.value = [(e.lngLat)['lng'], (e.lngLat)['lat']]
+        marcadorLocalizacion.remove();
+        marcadorLocalizacion = new mapboxgl.Marker({
+          color: '#6907f2',
+          draggable: false
+        }).setLngLat(ubicacionCasa.value).addTo(map)
+      })
+    }
   }
 
   const moverCamMapa = (ubicacion, zoom) => {
@@ -66,7 +83,7 @@ export const generalStore = defineStore('store', () => {
       marcadorLocalizacion.remove();
       marcadorLocalizacion = new mapboxgl.Marker({
         color: '#6907f2',
-        draggable: true
+        draggable: false
       }).setLngLat(ubicaciones[0]).addTo(map)
     }
 
@@ -78,7 +95,7 @@ export const generalStore = defineStore('store', () => {
 
       marcadorUber = new mapboxgl.Marker({
         color: '#000',
-        draggable: true
+        draggable: false
       }).setLngLat(ubicaciones[0]).addTo(map)
     }
 
@@ -87,7 +104,7 @@ export const generalStore = defineStore('store', () => {
       if (localStorage.getItem('ruta-generada-bool') == false || localStorage.getItem('ruta-generada-bool') == 'false') {
         marcadorLocalizacionfinal = new mapboxgl.Marker({
           color: '#ff475e',
-          draggable: true
+          draggable: false
         }).setLngLat(ubicaciones[(ubicaciones).length - 1]).addTo(map)
       } else {
         moverCamMapa(ubicaciones[0], 15)
@@ -95,7 +112,7 @@ export const generalStore = defineStore('store', () => {
         marcadorLocalizacionfinal.remove();
         marcadorLocalizacionfinal = new mapboxgl.Marker({
           color: '#ff475e',
-          draggable: true
+          draggable: false
         }).setLngLat(ubicaciones[(ubicaciones).length - 1]).addTo(map)
       }
     }
@@ -130,7 +147,7 @@ export const generalStore = defineStore('store', () => {
       duracionViaje.value = respuesta.data['routes'][0]['duration']
       distanciaViaje.value = respuesta.data['routes'][0]['distance']
       localStorage.setItem('duracion', CryptoJS.AES.encrypt((duracionViaje.value).toString(), 'duracion').toString())
-      localStorage.setItem('distancia', CryptoJS.AES.encrypt((duracionViaje.value).toString(), 'distancia').toString())
+      localStorage.setItem('distancia', CryptoJS.AES.encrypt((distanciaViaje.value).toString(), 'distancia').toString())
       ruta.value = respuesta.data['routes'][0].geometry.coordinates
       crearMarker(ubicaciones, 'Destino')
       if (map.getLayer('ruta-layer')) {
@@ -201,18 +218,43 @@ export const generalStore = defineStore('store', () => {
       const { data } = supabase
         .storage
         .from('digital-economy-file-server')
-        .getPublicUrl(rutaParcial.value)
-
+        .getPublicUrl(rutaParcial.value['path'])
       return data
     }
   }
 
+  const encriptar = (data, key) => {
+    return CryptoJS.AES.encrypt(data, key).toString();
+  }
+
+  const desencriptar = (data, key) => {
+    return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
+  }
+
+  const obtenerDistanciaTiempo = () => {
+    axios.get('https://api.mapbox.com/directions/v5/mapbox/driving/' + + '?access_token=' + apikey)
+  }
+
+  const validarCorreo = (correo) => {
+    if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(correo)) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return {
     subirArchivo,
     cargarMapa,
     apikey,
     generarRuta,
-    crearMarker
+    crearMarker,
+    encriptar,
+    desencriptar,
+    dataNoFiltradaCasas,
+    dataTags,
+    validarCorreo,
+    ubicacionCasa,
+    dataCompletaCasas
   }
 })

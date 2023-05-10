@@ -8,7 +8,8 @@
         <span>Home</span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')" class="item-menu rentacar-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')"
+      class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="car" /> </span>
       </div>
@@ -16,7 +17,8 @@
         <span>RentAcar</span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/reservas' }" @click="navegar('reservas')" class="item-menu rentacar-btn">
+    <div v-if="existeToken == true" :class="{ seleccionado: opSeleccionada == '/reservas' }" @click="navegar('reservas')"
+      class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="location-pin-lock" /> </span>
       </div>
@@ -24,7 +26,7 @@
         <span>Reservas</span>
       </div>
     </div>
-    <div  :class="{ seleccionado: opSeleccionada == '/llevame' }" @click="navegar('llevame')" class="item-menu taxi-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/llevame' }" @click="navegar('llevame')" class="item-menu taxi-btn">
       <div class="icono-taxi">
         <span class="icono-secundario"><font-awesome-icon icon="location-dot" /> </span>
         <span class="icono"><font-awesome-icon icon="taxi" /> </span>
@@ -52,7 +54,8 @@
         <span class="icono"><font-awesome-icon icon="house-chimney" /> </span>
       </div>
     </div>
-    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')" class="item-menu rentacar-btn">
+    <div :class="{ seleccionado: opSeleccionada == '/rentacar' }" @click="navegar('rentacar')"
+      class="item-menu rentacar-btn">
       <div class="icono-rentAcar">
         <span class="icono"><font-awesome-icon icon="car" /> </span>
       </div>
@@ -71,6 +74,7 @@
       </div>
     </div>
   </div>
+  <alerta v-if="mostrandoAlerta == true" :mensaje="mensaje" :error="err" />
 </template>
 
 <style scoped>
@@ -177,9 +181,11 @@
 <script setup>
 import { ref } from 'vue';
 import router from '@/router';
+import alerta from './alerta.vue';
 import { useRoute } from "vue-router";
 
 const routeParams = useRoute()
+const existeToken = ref(false)
 
 const emisiones = defineEmits([
   'abrirSesion',
@@ -191,6 +197,9 @@ const propsMenu = defineProps([
 ])
 
 const opSeleccionada = ref(routeParams.path)
+const mensaje = ref('')
+const err = ref('')
+const mostrandoAlerta = ref(false)
 const scrolleando = ref(false)
 const lastScroll = ref(0);
 /**
@@ -198,7 +207,25 @@ const lastScroll = ref(0);
  * Función que está bindeada al botón home en la vista de celular, redireccionará a la página principal o hará la recarga de la página
  */
 const navegar = (nombre) => {
-  router.push('/' + nombre)
+  if (nombre == 'llevame' && sessionStorage.getItem('token') == null) {
+    mensaje.value = 'No es posible acceder sin iniciar Sesión'
+    err.value = 'true'
+    usarAlerta()
+
+  } else {
+    router.push('/' + nombre)
+  }
+}
+
+const usarAlerta = () => {
+  mostrandoAlerta.value = !mostrandoAlerta.value
+  setTimeout(() => { mostrandoAlerta.value = !mostrandoAlerta.value; desplegarSubModal('Iniciar Sesion') }, 1900);
+}
+
+if (sessionStorage.getItem('token') != null) {
+  existeToken.value = true
+} else {
+  existeToken.value = false
 }
 
 //Evento que sirve para escuchar el scroll de la página

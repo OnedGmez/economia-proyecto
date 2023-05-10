@@ -6,23 +6,114 @@
         <div class="form d-flex">
             <div class="input-group">
                 <span class="input-group-text" id="usuario-input"></span>
-                <input type="text" class="form-control" autofocus required placeholder="Usuario/Correo electrónico"
+                <input type="text" v-model="usuario" class="form-control" autofocus required placeholder="Usuario"
                     aria-label="Usuario" aria-describedby="usuario-input">
             </div>
             <div class="input-group">
                 <span class="input-group-text" id="contra-input"></span>
-                <input type="password" class="form-control" required placeholder="Contraseña" aria-label="Contrasenia"
-                    aria-describedby="contra-input">
+                <input type="password" v-model="contrasenia" class="form-control" required placeholder="Contraseña"
+                    aria-label="Contrasenia" aria-describedby="contra-input">
             </div>
-            <a href="#">Olvidé mi contraseña</a>
         </div>
-        <div @click="emisionInicioSesion" class="button">
+        <div @click="validarUsuario" class="button">
             Iniciar Sesión
         </div>
     </div>
+    <alerta v-if="mostrandoAlerta == true" :mensaje="mensajeAlerta" error="true" />
 </template>
 
 <script setup>
+import { generalStore } from '@/store'
+import { usuarioStore } from '@/store/user'
+import { supabase } from '@/lib/supabaseClient'
+import { ref } from 'vue'
+import alerta from '@/components/complementos-componentes/alerta.vue'
+import { SHA256 } from 'crypto-js'
+import router from '@/router'
+
+const usuario = ref('')
+const contrasenia = ref('')
+const mensajeAlerta = ref('')
+const mostrandoAlerta = ref(false)
+const store = generalStore()
+const storeUsuario = usuarioStore()
+let date = new Date();
+
+const emisiones = defineEmits([
+    'cerrarModal'
+])
+
+/**
+ * dev: Oned Gómez
+ * Función para validar las credenciales del usuario
+ */
+const validarUsuario = async () => {
+  const fechaActual = String(date.getFullYear()) + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+  console.log((SHA256(contrasenia.value)).toString())
+    if (usuario.value !== '' && contrasenia.value !== '') {
+        try {
+            let { data, error } = await supabase
+                .rpc('validarusuario', {
+                    password: (SHA256(contrasenia.value)).toString(),
+                    username: usuario.value
+                })
+
+            if (error) {
+                mensajeAlerta.value = error
+                usarAlerta()
+            }
+
+            if (data != '') {
+                const clientcode = data[0]['clientcode']
+                const usuario = data[0]['username']
+                const rol = store.encriptar(data[0]['rol'], 'rol')
+                const urlphoto = data[0]['urlphoto']
+                const dni = store.encriptar(data[0]['dni'], 'dni')
+                const bincard = data[0]['bincard'].toString()
+                const balance = data[0]['balance'].toString()
+
+                const dataToken = [{
+                    clientcode,
+                    usuario,
+                    rol,
+                    fechaActual
+                }]
+
+                const dataProcesos = [{
+                    clientcode,
+                    usuario,
+                    rol,
+                    urlphoto,
+                    dni,
+                    bincard,
+                    balance
+                }]
+
+                storeUsuario.crearToken(JSON.stringify(dataToken))
+                document.cookie = "usuario" + "=" + store.encriptar(usuario, 'usuario') + ";path=/;"
+                document.cookie = "rol" + "=" + store.encriptar(rol, 'rol') + ";path=/;"
+                document.cookie = "clientcode" + "=" + store.encriptar(clientcode, 'clientcode') + ";path=/;"
+                document.cookie = "dni" + "=" + store.encriptar(dni, 'dni') + ";path=/;"
+                localStorage.setItem('usuario-data', JSON.stringify(dataProcesos))
+                router.go()
+            } else {
+                mensajeAlerta.value = 'Usuario y/o contraseña incorrectas'
+                usarAlerta()
+            }
+        } catch (error) {
+            mensajeAlerta.value = error
+            usarAlerta()
+        }
+    } else {
+        mensajeAlerta.value = 'Debe proporcionar la información solicitada'
+        usarAlerta()
+    }
+}
+
+const usarAlerta = () => {
+    mostrandoAlerta.value = !mostrandoAlerta.value
+    setTimeout(() => { mostrandoAlerta.value = !mostrandoAlerta.value; }, 1900);
+}
 </script>
 
 <style scoped>

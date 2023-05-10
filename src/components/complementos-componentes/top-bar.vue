@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="busqueda">
-                <barraBusqueda :vista="vista" />
+                <barraBusqueda :vista="vista" @buscar="(valorBuscar) => buscar(valorBuscar)" />
                 <div v-if="mostrarMenuCel == true" @click="desplegarOtrosFiltros" class="filtro-btn">
                     <div class="icono-boton">
                         <span class="icono"> <font-awesome-icon icon="sliders" /> </span>
@@ -18,7 +18,7 @@
                 @desplegar-modal-sesion="() => desplegarModalSesion()" />
         </div>
         <div class="d-flex zona-filtros">
-            <zonaFiltros />
+            <zonaFiltros :data="data" @filtrar="(valorFiltro) => emitirFiltro(valorFiltro)" />
             <button v-if="mostrarMenuCel == false" @click="desplegarOtrosFiltros" class="d-flex btn">
                 <div class="icono-boton">
                     <span> <font-awesome-icon icon="sliders" /> </span>
@@ -28,7 +28,7 @@
                 </div>
             </button>
         </div>
-        <div @click="desplegarModalNuevo" class="button">
+        <div v-if="existeToken == true && rol == 'Administrador'" @click="desplegarModalNuevo" class="button">
             <span v-if="vista == 'Home'">Nueva casa</span>
             <span v-if="vista == 'RentaCar'">Nuevo vehículo</span>
         </div>
@@ -56,241 +56,128 @@
             </div>
         </div>
 
+        <!--Uber cerca-->
         <div class="uber-cerca">
             <div class="titulo">
                 <span>Vehículos cerca</span>
             </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
+            <div class="container">
+                <div class="row">
+                    <div v-for="uber in ubers" class="col-6 col-lg-12 tarjeta-vehiculo-cerca">
+                        <div @click="Solicitar(uber['coords'])" class="card">
+                            <div class="d-flex detalles">
+                                <div class="d-flex card-img">
+                                    <img class="img-fluid" :src="uber['urlphoto']" alt="Vehículo">
+                                </div>
+                                <div class="contenido-card-vehiculo">
+                                    <div class="marca-vehiculo">
+                                        <span class="marca"> {{ uber['brand'] }} <span class="modelo"> Verssa </span>
+                                        </span>
+                                    </div>
+                                    <div class="color">
+                                        <span class="etiqueta">Color: <span class="espacio-color"
+                                                style="background-color = {{uber['color']}}"></span></span>
+                                    </div>
+                                    <div class="placa-vehiculo">
+                                        <span class="etiqueta">Placa: <span class="numero"> {{ uber['platecode'] }}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="destinoSelect == true" class="d-flex reservar">
+                                <span class="pago">L. {{ (uber['baserentalprice'] * distancia).toFixed(2) +
+                                    uber['cancellationprotection'] }} <span class="moneda">HNL</span></span>
+                                <button
+                                    @click="reservar(uber['cabcode'], ((uber['baserentalprice'] * distancia).toFixed(0) + uber['cancellationprotection']))">¡Ven
+                                    por mí!</button>
+                            </div>
                         </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09024])">¡Ven por mí!</button>
                     </div>
                 </div>
             </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
-                        </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09074])">¡Ven por mí!</button>
-                    </div>
-                </div>
-            </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
-                        </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09074])">¡Ven por mí!</button>
-                    </div>
-                </div>
-            </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
-                        </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09074])">¡Ven por mí!</button>
-                    </div>
-                </div>
-            </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
-                        </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09074])">¡Ven por mí!</button>
-                    </div>
-                </div>
-            </div>
-            <div class="tarjeta-vehiculo-cerca">
-                <div class="card">
-                    <div class="d-flex detalles">
-                        <div class="d-flex card-img">
-                            <img class="img-fluid"
-                                src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/cars/carro_prueba.png"
-                                alt="Vehículo">
-                        </div>
-                        <div class="contenido-card-vehiculo">
-                            <div class="marca-vehiculo">
-                                <span class="marca"> Nissan <span class="modelo"> Verssa </span> </span>
-                            </div>
-                            <div class="color">
-                                <span class="etiqueta">Color: <span class="espacio-color"></span></span>
-                            </div>
-                            <div class="placa-vehiculo">
-                                <span class="etiqueta">Placa: <span class="numero"> PCB 0028</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex reservar">
-                        <span class="pago">L.1100 <span class="moneda">HNL</span></span>
-                        <button @click="Solicitar([-87.2087552,14.09074])">¡Ven por mí!</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
     <accionesSesion v-if="mostrandoModalAccionesSesion == true"
         @desplegar-modal="(nombreModal) => { desplegarSubModal(nombreModal), desplegarModalSesion() }" />
     <modalSesion v-if="mostrandoModalSesion == true" :accion="accionModal" @cerrar-modal="() => cerrarSubModal()" />
-    <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" :vista=vista />
+    <modalOtrosFiltros v-if="mostrandoModalFiltros == true" @cerrar-modal="() => desplegarOtrosFiltros()" :vista="vista"
+        :data="dataServices" />
     <modalNuevo v-if="mostrandoModalNuevo == true" :vista="vista" @cerrar-nuevo="() => desplegarModalNuevo()" />
+    <alerta v-if="mostrandoAlerta == true" :mensaje="mensaje" :error="err" />
 </template>
 
 <style scoped>
-
-.uber-cerca{
+.uber-cerca {
     position: relative;
     margin-top: 15px;
-    height: 505px;
+    height: 440px;
     overflow-y: scroll;
 }
 
-.uber-cerca .titulo{
+.uber-cerca .titulo {
     font-size: calc(.65em + .75vw);
     font-weight: 500;
 }
-.uber-cerca .tarjeta-vehiculo-cerca{
+
+.uber-cerca .tarjeta-vehiculo-cerca {
     padding: 0 5px;
     margin: 10px 0 0 0;
 }
 
-.uber-cerca .tarjeta-vehiculo-cerca .card .detalles{
+.uber-cerca .tarjeta-vehiculo-cerca .card .detalles {
     flex-direction: row;
 }
 
-.uber-cerca .tarjeta-vehiculo-cerca .card{
+.uber-cerca .tarjeta-vehiculo-cerca .card {
     padding: 7px 0px 7px 0;
 }
 
-.card .detalles .card-img{
+.uber-cerca .tarjeta-vehiculo-cerca .card:hover {
+    cursor: pointer;
+}
+
+.card .detalles .card-img {
     width: 120px;
     padding: 0 8px;
 }
 
-.card .detalles .contenido-card-vehiculo{
+.card .detalles .contenido-card-vehiculo {
     margin-left: 12px;
     text-align: start;
 }
 
-.contenido-card-vehiculo .marca-vehiculo{
+.contenido-card-vehiculo .marca-vehiculo {
     font-size: calc(.5em + .7vw);
     font-weight: 600;
 }
 
-.contenido-card-vehiculo .placa-vehiculo, .color {
+.contenido-card-vehiculo .placa-vehiculo,
+.color {
     font-size: calc(.5em + .55vw);
     font-weight: 500;
 }
 
-.contenido-card-vehiculo .etiqueta{
+.contenido-card-vehiculo .etiqueta {
     font-weight: 400;
 }
 
-.contenido-card-vehiculo .etiqueta .numero{
+.contenido-card-vehiculo .etiqueta .numero {
     font-weight: 500;
 }
 
-.tarjeta-vehiculo-cerca .card .reservar{
+.tarjeta-vehiculo-cerca .card .reservar {
     padding: 0 10px;
     justify-content: space-between;
     align-items: center;
 }
 
-.card .reservar .pago{
+.card .reservar .pago {
     font-weight: 500;
     font-size: calc(.65em + .45vw);
 }
 
-.pago .moneda{
+.pago .moneda {
     font-weight: 400;
 }
 
@@ -306,7 +193,7 @@
 }
 
 button:hover {
-    background-color: #ff475e!important;
+    background-color: #ff475e !important;
     color: #fff !important;
 }
 
@@ -508,8 +395,8 @@ button:hover {
     }
 
     .form-control {
-        font-size: calc(.5em + .45vw);
-        margin-left: 30px;
+        font-size: calc(.75em + .85vw);
+        margin-left: 15px;
         margin-top: 15px;
         width: 50%;
     }
@@ -576,13 +463,44 @@ button:hover {
         font-size: calc(.65em + 1vw);
         margin-left: 25px;
     }
+
+    .uber-cerca {
+        position: fixed;
+        bottom: 0%;
+        background-color: #fff;
+        height: 230px;
+        overflow-y: scroll;
+    }
+
+    .back {
+        font-size: calc(1em + 1.8vw);
+    }
+
+    .card .reservar button {
+        font-size: calc(.6em + .8vw);
+    }
+
+    .card .detalles .card-img {
+        width: 100px;
+    }
+
+    .contenido-card-vehiculo .marca-vehiculo {
+        font-size: calc(1em + .85vw);
+    }
+
+    .contenido-card-vehiculo .placa-vehiculo,
+    .color {
+        font-size: calc(.75em + .6vw);
+    }
 }
 </style>
 
 <script setup>
 import { ref } from 'vue';
 import { generalStore } from '@/store/index.js'
+import { supabase } from '@/lib/supabaseClient';
 
+import alerta from '@/components/complementos-componentes/alerta.vue';
 import barraBusqueda from '@/components/barra-busqueda.vue'
 import accionesSesion from '@/components/modal-acciones-sesion.vue'
 import modalSesion from '@/components/modal-sesion.vue'
@@ -595,9 +513,17 @@ import router from '@/router';
 
 const propsBar = defineProps([
     'vista',
-    'ubicacion'
+    'ubicacion',
+    'data'
 ])
 
+const emisiones = defineEmits([
+    'filtrar',
+    'buscar'
+])
+
+const ubers = ref('')
+const rol = ref('')
 const accionModal = ref('')
 const origenes = ref('')
 const destinos = ref('')
@@ -608,13 +534,57 @@ const destinoSelect = ref(false)
 const origenSelect = ref(false)
 const valorBuscadoOrigen = ref(propsBar.ubicacion)
 const ubiOrigen = ref(propsBar.ubicacion)
+const dataServices = ref('')
+const distancia = ref(0)
+const clientcode = ref('')
+const bincar = ref('')
+const balance = ref(0)
+
+const mensaje = ref('')
+const err = ref('')
 
 const mostrandoModalAccionesSesion = ref(false)
 const mostrandoModalSesion = ref(false)
 const mostrandoModalFiltros = ref(false)
 const mostrandoModalNuevo = ref(false)
+const mostrandoAlerta = ref('')
 
 const mostrarMenuCel = ref(false)
+const date = new Date();
+
+const existeToken = ref(false)
+if (JSON.parse(localStorage.getItem('usuario-data')) != null) {
+    rol.value = store.desencriptar(((JSON.parse(localStorage.getItem('usuario-data')))[0]['rol']), 'rol')
+    balance.value = JSON.parse(localStorage.getItem('usuario-data'))[0]['balance']
+    bincar.value = JSON.parse(localStorage.getItem('usuario-data'))[0]['bincard']
+    clientcode.value = ((JSON.parse(localStorage.getItem('usuario-data')))[0]['clientcode'])
+}
+
+if (sessionStorage.getItem('token') != null) {
+    existeToken.value = true
+} else {
+    existeToken.value = false
+}
+
+const cargarUbers = async () => {
+    try {
+        let { data, error } = await supabase
+            .rpc('cargarubers')
+
+        if (error) {
+            mensaje.value = error
+            err.value = 'true'
+            usarAlerta()
+        } else {
+            ubers.value = data
+        }
+    } catch (error) {
+        mensaje.value = error
+        err.value = 'true'
+        usarAlerta()
+    }
+}
+cargarUbers()
 
 /**
  * dev: Oned Gómez
@@ -634,9 +604,92 @@ const desplegarSubModal = (nombreModal) => {
     accionModal.value = nombreModal
 }
 
+/**
+ * dev: Oned Gómez
+ * Función que ayuda a marcar la ruta con el tercer punto en el mapa que sería la ubicación del conductor
+ * @param {*} coordenadasVehiculo: contendrá las coordenadas del vehículo en tiempo real 
+ */
 const Solicitar = (coordenadasVehiculo) => {
-    const coordenadasNuevas = [coordenadasVehiculo, ubiOrigen.value, ubiDestino.value]
-    store.generarRuta(coordenadasNuevas)
+    coordenadasVehiculo = coordenadasVehiculo.split(',')
+    if (ubiDestino.value == '') {
+        mensaje.value = 'Indica tu destino'
+        err.value = 'true'
+        usarAlerta()
+        //cambiar
+    } else {
+        const coordenadasNuevas = [coordenadasVehiculo, ubiOrigen.value, ubiDestino.value]
+        store.generarRuta(coordenadasNuevas)
+    }
+}
+
+const reservar = async (cabcode, total) => {
+    try {
+        if (ubiDestino.value !== '' && ubiOrigen.value !== '') {
+            const reservationcode = (store.encriptar((ubiOrigen.value + ubiDestino.value + '-.-.' + ' ' + clientcode.value + (String(date.getFullYear()) + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0') + '-.-.' + String(date.getTime()))), 'llave')).substring(15, 25)
+            if (+total <= +balance.value) {
+                const { data, error } = await supabase
+                    .from('cabsreservation')
+                    .insert([
+                        {
+                            cabreservationcode: reservationcode,
+                            cabcode: cabcode,
+                            reservatedby: clientcode.value,
+                            origintravel: ubiOrigen.value[0] + ',' + ubiOrigen.value[1],
+                            traveldestination: ubiDestino.value[0] + ',' + ubiDestino.value[1],
+                            kilometersaway: distancia.value
+                        },
+                    ])
+                if (error) {
+                    mensaje.value = error
+                    err.value = 'true'
+                    usarAlerta()
+                } else {
+                    actualizarBalance(total)
+                }
+            } else {
+                mensaje.value = 'El saldo en tu tarjeta es insuficiente'
+                err.value = 'true'
+                usarAlerta()
+            }
+        } else {
+            mensaje.value = 'Selecciona tu Origen y destino'
+            err.value = 'true'
+            usarAlerta()
+        }
+    } catch (error) {
+        mensaje.value = error
+        err.value = 'true'
+        usarAlerta()
+    }
+}
+
+const actualizarBalance = async (total) => {
+    try {
+        let nuevoBalance = (balance.value) - (total)
+        const { data, error } = await supabase
+            .from('cards')
+            .update({ balance: nuevoBalance })
+            .eq('bincard', bincar.value)
+            console.log(bincar.value)
+        if (error) {
+            mensaje.value = error
+            err.value = 'true'
+            usarAlerta()
+        } else {
+            const dataTMP = JSON.parse(localStorage.getItem('usuario-data'))[0]
+            dataTMP['balance'] = nuevoBalance
+            localStorage.setItem('usuario-data', JSON.stringify([dataTMP]))
+            mensaje.value = 'Reserva realizada éxitosamente'
+            err.value = 'false'
+            usarAlerta()
+            setTimeout(() => { router.go() }, 1900);
+        }
+    } catch (error) {
+        console.log(error)
+        mensaje.value = error
+        err.value = 'true'
+        usarAlerta()
+    }
 }
 
 /**
@@ -659,6 +712,10 @@ const desplegarModalNuevo = () => {
     mostrandoModalNuevo.value = !mostrandoModalNuevo.value
 }
 
+/**
+ * dev: Oned Gómez
+ * Función para buscar y marcar el punto de origen del viaje
+ */
 const buscarOrigen = () => {
     if (valorBuscadoOrigen.value !== '') {
         origenSelect.value = false
@@ -685,6 +742,10 @@ const buscarOrigen = () => {
     }
 }
 
+/**
+ * dev: Oned Gómez
+ * Función para proporcionar las coordenadas y el nombre del lugar del punto de origen
+ */
 const seleccionarOrigen = (data) => {
     if (valorBuscadoDestino.value !== '') {
         const ubicaciones = [data['center'], ubiDestino.value]
@@ -699,6 +760,10 @@ const seleccionarOrigen = (data) => {
     origenSelect.value = true
 }
 
+/**
+ * dev: Oned Gómez
+ * Función para proporcionar las coordenadas y el nombre del lugar del punto de destino
+ */
 const seleccionarDestino = (data) => {
     if (valorBuscadoOrigen !== '') {
         const ubicaciones = [ubiOrigen.value, data['center']]
@@ -707,12 +772,22 @@ const seleccionarDestino = (data) => {
         valorBuscadoDestino.value = data['place_name']
     }
     destinoSelect.value = true
+    if (localStorage.getItem('distancia') !== null) {
+        distancia.value = localStorage.getItem('distancia')
+        distancia.value = store.desencriptar(distancia.value, 'distancia')
+    }
 }
 
 const navegar = () => {
     router.push('/')
+    localStorage.removeItem('distancia')
+    localStorage.removeItem('duracion')
 }
 
+/**
+ * dev: Oned Gómez
+ * Función para buscar y marcar el punto de destino del viaje
+ */
 const buscarDestino = () => {
     if (valorBuscadoDestino !== '') {
         destinoSelect.value = false
@@ -737,6 +812,41 @@ const buscarDestino = () => {
     } else {
         destinos.value = ''
     }
+}
+
+
+/**
+* dev: Oned Gómez
+* Función para arrastrar todas los servicios de la base de datos
+*/
+const cargarServices = async () => {
+    try {
+        let { data, error } = await supabase
+            .rpc('seleccionarservices')
+
+        if (error) {
+            console.error(error)
+        }
+        else {
+            dataServices.value = data
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+cargarServices()
+
+const usarAlerta = () => {
+    mostrandoAlerta.value = !mostrandoAlerta.value
+    setTimeout(() => { mostrandoAlerta.value = !mostrandoAlerta.value; }, 1900);
+}
+
+const emitirFiltro = (valorFiltro) => {
+    emisiones('filtrar', valorFiltro)
+}
+
+const buscar = (valorBuscar) => {
+    emisiones('buscar', valorBuscar)
 }
 
 if (screen.width <= 768) {

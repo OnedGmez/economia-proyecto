@@ -2,42 +2,46 @@
     <div v-if="vista == 'Home'" class="col-sm-6 col-md-4 col-lg-3 contenedor-tarjeta">
         <div @click="mostrarDetalles" class="card card-casa">
             <div class="img">
-                <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z" class="img-fluid card-img-top"
-                    alt="...">
+                <img :src="fotos[0]" class="img-fluid card-img-top" alt="...">
             </div>
             <div class="card-body">
                 <div class="localizacion">
                     <span class="icono"><font-awesome-icon icon="location-dot" /></span>
-                    <span class="ubicacion">La Paz, La Paz, Honduras</span>
+                    <span class="ubicacion">{{ ubicacionN }}</span>
                 </div>
                 <div class="distancia">
-                    <span>150 mts de distancia</span>
+                    <span>{{ distancia }} mts de distancia</span>
                 </div>
                 <div class="precio-renta">
                     <span class="icono"><font-awesome-icon icon="money-bill" /></span>
-                    <span class="precio">L11,500 HNL <span class="tiempo"> día</span></span>
+                    <span class="precio">L{{ data['baserentalprice'] }} HNL <span class="tiempo"> día</span></span>
                 </div>
                 <div class="detalles-casa d-flex">
                     <div class="tag">
                         <div class="img-detalles">
-                            <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/tags/isla.svg?t=2023-04-23T22%3A34%3A48.914Z" alt="nombre tag">
+                            <img class="img-fluid" :src="data['icono']" alt="nombre tag">
                         </div>
-                        <span class="nombre-tag">Frente a la playa</span>
+                        <span class="nombre-tag">{{ data['tagname'] }}</span>
                     </div>
                     <span class="etiqueta-contenido">Servicios ofrecidos</span>
-                    <div class="d-flex some-services">
+                    <div v-if="loading == false" class="d-flex some-services">
                         <div class="d-flex servicio">
                             <div class="img-servicio">
-                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="nombre servicio">
+                                <img class="img-fluid" :src="serviciosC[0]['icono']" alt="nombre servicio">
                             </div>
-                            <span class="nombre-servicio">Desayuno</span>
+                            <span class="nombre-servicio">{{ serviciosC[0]['servicename'] }}</span>
                         </div>
                         <div class="d-flex servicio">
                             <div class="img-servicio">
-                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/clean-service.svg?t=2023-04-23T22%3A45%3A45.761Z"
-                                    alt="nombre servicio">
+                                <img class="img-fluid" :src="serviciosC[1]['icono']" alt="nombre servicio">
                             </div>
-                            <span class="nombre-servicio">Limpieza</span>
+                            <span class="nombre-servicio">{{ serviciosC[1]['servicename'] }}</span>
+                        </div>
+                        <div class="d-flex servicio">
+                            <div class="img-servicio">
+                                <img class="img-fluid" :src="serviciosC[2]['icono']" alt="nombre servicio">
+                            </div>
+                            <span class="nombre-servicio">{{ serviciosC[2]['servicename'] }}</span>
                         </div>
                     </div>
                 </div>
@@ -330,14 +334,17 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
                         <span class="separador"></span>
                         <div class="tag">
                             <div class="img-detalles">
-                                <img class="img-fluid" src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg" alt="nombre tag">
+                                <img class="img-fluid"
+                                    src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/icons/services/breakfast.svg"
+                                    alt="nombre tag">
                             </div>
                             <span class="nombre-tag">Frente a la playa</span>
                         </div>
                         <span class="separador"></span>
                         <div class="precio-renta">
                             <span class="icono"><font-awesome-icon icon="money-bill" /></span>
-                            <span class="precio">L11,500 HNL <span class="tiempo"> x <span class="num">4</span> día(s)</span></span>
+                            <span class="precio">L11,500 HNL <span class="tiempo"> x <span class="num">4</span>
+                                    día(s)</span></span>
                         </div>
                     </div>
                 </div>
@@ -347,6 +354,20 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+import { generalStore } from '@/store'
+import { supabase } from '@/lib/supabaseClient';
+
+const fotos = ref([])
+const ubicacionN = ref('')
+const ubicacionActual = ref([])
+const serviciosC = ref('')
+const loading = ref(true)
+const distancia = ref(0)
+
+const store = generalStore()
+
 const emisiones = defineEmits([
     'abrirDetalles'
 ])
@@ -356,9 +377,99 @@ const propsTarjeta = defineProps([
     'vista'
 ])
 
-const mostrarDetalles = () => {
-    emisiones('abrirDetalles', propsTarjeta.vista)
+if ("geolocation" in navigator) {
+    /**CODIGO SI EL NAVEGADOR PERMITE LA UBICACION */
+    navigator.geolocation.getCurrentPosition(ubicacionOK => {
+        /**CODIGO FUNCION SI HAY ERRORES EN LA OBTENCIÓN DE LA UBICACION */
+        ubicacionActual.value.push(ubicacionOK.coords.longitude)
+        ubicacionActual.value.push(ubicacionOK.coords.latitude)
+
+        const obtenerDistancia = async () => {
+            const parametros = {
+                'alternatives': false,
+                'geometries': 'geojson',
+                'overview': 'simplified',
+                'access_token': store.apikey
+            }
+            propsTarjeta.data['coords'] = (propsTarjeta.data['coords']).replace('[', '')
+            propsTarjeta.data['coords'] = (propsTarjeta.data['coords']).replace(']', '')
+            axios.get('https://api.mapbox.com/directions/v5/mapbox/driving/' + ubicacionActual.value + ';' + propsTarjeta.data['coords'], {
+                params: parametros
+            }).then(res => {
+                distancia.value = Math.round(res['data']['routes'][0]['distance'])
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+        obtenerDistancia()
+    }, () => {
+        /**CODIGO FUNCION SI HAY ERRORES EN LA OBTENCIÓN DE LA UBICACION */
+        /**Si no obtenemos la ubicación, mandamos una ubicación generica, para no quitar la posibilidad de usar el servicio */
+    },
+        {
+            /**Indicamos alta precisión en la obtención de la ubicación */
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 30000
+        })
 }
+
+if (propsTarjeta.vista == 'Home') {
+    const separarFotos = () => {
+        fotos.value = (propsTarjeta.data['urlphoto']).split(',')
+    }
+    separarFotos()
+
+    const nuevaUbicacion = () => {
+        ubicacionN.value = (propsTarjeta.data['location']).substring(0, ((propsTarjeta.data['location']).lastIndexOf(',')))
+    }
+    nuevaUbicacion()
+
+    const serviciosCasa = async () => {
+        try {
+            let { data, error } = await supabase
+                .rpc('buscarservicios', {
+                    apartmentcode: propsTarjeta.data['apartmentcode']
+                })
+
+            if (error) {
+                console.error(error)
+            } else {
+                serviciosC.value = data
+                loading.value = false
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    serviciosCasa()
+}
+
+const mostrarDetalles = () => {
+    let data = ''
+    if (propsTarjeta.vista == 'Home') {
+        data = {
+            apartmentcode: propsTarjeta.data['apartmentcode'],
+            baserentalprice: propsTarjeta.data['baserentalprice'],
+            cancellationprotection: propsTarjeta.data['cancellationprotection'],
+            coords: propsTarjeta.data['coords'],
+            floornum: propsTarjeta.data['floornum'],
+            icono: propsTarjeta.data['icono'],
+            location: ubicacionN.value,
+            numbathrooms: propsTarjeta.data['numbathrooms'],
+            numrooms: propsTarjeta.data['numrooms'],
+            rating: propsTarjeta.data['rating'],
+            securitydeposit: propsTarjeta.data['securitydeposit'],
+            tagname: propsTarjeta.data['tagname'],
+            ultimareservacion: propsTarjeta.data['ultimareservacion'],
+            urlphoto: fotos.value,
+            distancia: distancia.value,
+            servicios: serviciosC.value
+        }
+    }
+    emisiones('abrirDetalles', data)
+}
+
 </script>
 
 <style scoped>
@@ -483,11 +594,11 @@ const mostrarDetalles = () => {
     margin-right: 12px;
 }
 
-.separador{
+.separador {
     margin-bottom: 10px !important;
 }
 
-.detalles-reserva .precio-renta{
+.detalles-reserva .precio-renta {
     justify-content: center;
     margin-top: 0;
     margin-bottom: 10px;
@@ -625,7 +736,8 @@ const mostrarDetalles = () => {
         margin-left: 10px;
     }
 
-    .card .card-body .detalles-casa .img-detalles, .detalles-reserva .img-detalles {
+    .card .card-body .detalles-casa .img-detalles,
+    .detalles-reserva .img-detalles {
         width: 33px;
     }
 
@@ -694,4 +806,5 @@ const mostrarDetalles = () => {
         margin-left: 0px;
         font-size: calc(.5em + .55vw);
     }
-}</style>
+}
+</style>

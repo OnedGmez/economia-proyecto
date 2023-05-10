@@ -12,28 +12,23 @@
                         <div v-if="vista == 'Home'" class="d-flex mosaico">
                             <div class="columna-prin">
                                 <div class="img-casa">
-                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
-                                        class="img-fluid img-top" alt="...">
+                                    <img :src="data['urlphoto'][0]" class="img-fluid img-top" alt="...">
                                 </div>
                             </div>
                             <div class="columna-secundaria">
                                 <div class="img-casa">
-                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
-                                        class="img-fluid img-top" alt="...">
+                                    <img :src="data['urlphoto'][1]" class="img-fluid img-top" alt="...">
                                 </div>
                                 <div class="img-casa">
-                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
-                                        class="img-fluid img-top" alt="...">
+                                    <img :src="data['urlphoto'][2]" class="img-fluid img-top" alt="...">
                                 </div>
                             </div>
                             <div class="columna-tercearia">
                                 <div class="img-casa">
-                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
-                                        class="img-fluid img-top" alt="...">
+                                    <img :src="data['urlphoto'][3]" class="img-fluid img-top" alt="...">
                                 </div>
                                 <div class="img-casa">
-                                    <img src="https://imrrsmkwbhsldwcxgoqv.supabase.co/storage/v1/object/public/digital-economy-file-server/photos/houses/casashn9.png?t=2023-04-23T22%3A33%3A17.624Z"
-                                        class="img-fluid img-top" alt="...">
+                                    <img :src="data['urlphoto'][4]" class="img-fluid img-top" alt="...">
                                 </div>
                             </div>
                         </div>
@@ -44,10 +39,10 @@
                         <div v-if="vista == 'Home'" class="informacion-ubicacion">
                             <div class="localizacion">
                                 <span class="icono"><font-awesome-icon icon="location-dot" /></span>
-                                <span class="ubicacion">La Paz, La Paz, Honduras</span>
+                                <span class="ubicacion">{{ data['location'] }}</span>
                             </div>
                             <div class="distancia">
-                                <span>150 mts de distancia</span>
+                                <span>{{ data['distancia'] }} mts de distancia</span>
                             </div>
                         </div>
                         <div v-if="vista == 'RentaCar'" class="informacion-carro">
@@ -68,15 +63,18 @@
                         <div v-if="vista == 'Home'" class="d-flex descripcion-casa">
                             <div class="detalle">
                                 <span class="icono"> <font-awesome-icon icon="bath" /> </span>
-                                <span class="descripcion"> <span class="cantidad-descripcion">2</span> baño(s)</span>
+                                <span class="descripcion"> <span class="cantidad-descripcion">{{ data['numbathrooms']
+                                }}</span> baño(s)</span>
                             </div>
                             <div class="detalle">
                                 <span class="icono"> <font-awesome-icon icon="bed" /> </span>
-                                <span class="descripcion"> <span class="cantidad-descripcion">2</span> habitaciones</span>
+                                <span class="descripcion"> <span class="cantidad-descripcion">{{ data['numrooms'] }}</span>
+                                    habitaciones</span>
                             </div>
                             <div class="detalle">
                                 <span class="icono"> <font-awesome-icon icon="building" /> </span>
-                                <span class="descripcion"> <span class="cantidad-descripcion">2</span> piso(s)</span>
+                                <span class="descripcion"> <span class="cantidad-descripcion">{{ data['floornum'] }}</span>
+                                    piso(s)</span>
                             </div>
                         </div>
                         <div v-if="vista == 'RentaCar'" class="d-flex caracteristicas-carro">
@@ -318,21 +316,24 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
                         <span class="separador"></span>
                         <div v-if="vista == 'Home'" class="d-flex servicios">
                             <span>Servicios disponibles</span>
-                            <carruselInformativo />
+                            <carruselInformativo :data="data['servicios']" />
                         </div>
                         <div class="detalles-reservacion">
                             <div class="precio-renta">
                                 <span class="icono"><font-awesome-icon icon="money-bill" /></span>
-                                <span class="precio">L11,500 HNL <span class="tiempo"> día</span></span>
+                                <span class="precio">L{{ data['baserentalprice'] }} HNL <span class="tiempo">
+                                        día</span></span>
                             </div>
                             <div class="fechas">
                                 <div class="d-flex dates">
                                     <span> Fecha inicial </span>
-                                    <input v-model="fechaInicio" type="date">
+                                    <input :min="maxFecha" :disabled="rol == 'Administrador'" v-model="fechaInicio"
+                                        type="date">
                                 </div>
                                 <div class="d-flex dates">
                                     <span> Fecha final </span>
-                                    <input @change="calcularDias" v-model="fechaFinal" type="date">
+                                    <input :min="fechaInicio" :disabled="rol == 'Administrador'" @change="calcularDias"
+                                        v-model="fechaFinal" type="date">
                                 </div>
                             </div>
                             <div class="montos">
@@ -340,20 +341,21 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
                                     <span class="icono"> <font-awesome-icon icon="shield-halved" /> </span>
                                     <div class="d-flex descripcion">
                                         <span class="nombre-monto"> Depósito de seguro</span>
-                                        <span class="cantidad">L540 HNL</span>
+                                        <span class="cantidad">L{{ data['securitydeposit'] }} HNL</span>
                                     </div>
                                 </div>
                                 <div class="d-flex deposito">
                                     <span class="icono"> <font-awesome-icon icon="shield-halved" /> </span>
                                     <div class="d-flex descripcion">
                                         <span class="nombre-monto"> Protección por cancelación</span>
-                                        <span class="cantidad">L540 HNL</span>
+                                        <span class="cantidad">L{{ data['cancellationprotection'] }} HNL</span>
                                     </div>
                                 </div>
                                 <div v-if="dias > 0" class="d-flex deposito base-dias">
                                     <div class="d-flex descripcion">
-                                        <span class="nombre-monto"> Precio base x {{ dias }} días</span>
-                                        <span class="cantidad">L540 HNL</span>
+                                        <span class="nombre-monto"> L{{ data['baserentalprice'] }} HNL x {{ dias }}
+                                            días + depósitos</span>
+                                        <span class="cantidad">L{{ pago }} HNL</span>
                                     </div>
                                 </div>
                             </div>
@@ -363,21 +365,52 @@ m-3780 -3780 c100 -45 155 -131 155 -240 0 -79 -22 -132 -75 -186 -54 -53
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button>Reservar</button>
+                <div v-if="rol !== 'Administrador'" class="modal-footer">
+                    <button @click="reservar(data['apartmentcode'])">Reservar</button>
                 </div>
             </div>
         </div>
     </div>
+    <modalSesion v-if="mostrandoModalSesion == true" accion="Iniciar Sesion" @cerrar-modal="() => cerrarSubModal()" />
+    <alerta v-if="mostrandoAlerta == true" :mensaje="mensaje" :error="err" />
 </template>
 
 <script setup>
 import carruselInformativo from '@/components/carrusel-informativo.vue'
+import modalSesion from '@/components/modal-sesion.vue'
+import { supabase } from '@/lib/supabaseClient'
+import { generalStore } from '@/store'
 import { ref } from 'vue'
+import alerta from '@/components/complementos-componentes/alerta.vue';
+import router from '@/router'
 
 const fechaInicio = ref('')
 const fechaFinal = ref('')
+const store = generalStore()
 const dias = ref(0)
+const mostrandoModalSesion = ref(false)
+const maxFecha = ref('')
+const date = new Date();
+const existeToken = ref(false)
+const pago = ref(0)
+const rol = ref('')
+const dni = ref('')
+const mensaje = ref('')
+const err = ref('false')
+const mostrandoAlerta = ref(false)
+const balance = ref('')
+const bincar = ref('')
+const clientcode = ref('')
+
+if (JSON.parse(localStorage.getItem('usuario-data')) != null) {
+    dni.value = store.desencriptar(((JSON.parse(localStorage.getItem('usuario-data')))[0]['dni']), 'dni')
+    rol.value = store.desencriptar(((JSON.parse(localStorage.getItem('usuario-data')))[0]['rol']), 'rol')
+    balance.value = JSON.parse(localStorage.getItem('usuario-data'))[0]['balance']
+    bincar.value = JSON.parse(localStorage.getItem('usuario-data'))[0]['bincard']
+    clientcode.value = ((JSON.parse(localStorage.getItem('usuario-data')))[0]['clientcode'])
+}
+
+console.log(bincar.value)
 
 const propsDetalles = defineProps([
     'data',
@@ -385,17 +418,128 @@ const propsDetalles = defineProps([
 ])
 
 const emisiones = defineEmits([
-    'cerrarDetalles'
+    'cerrarDetalles',
+    'reservado'
 ])
 
 const cerrarModal = () => {
     emisiones('cerrarDetalles')
 }
 
+/**
+ * dev: Oned Gómez
+ * Función que sirve para cerrar el modal que contiene los formularios de registro e inicio de sesión
+ */
+const cerrarSubModal = () => {
+    mostrandoModalSesion.value = !mostrandoModalSesion.value
+}
+
+if (propsDetalles.data['ultimareservacion'] != null) {
+    maxFecha.value = propsDetalles.data['ultimareservacion']
+} else {
+    maxFecha.value = String(date.getFullYear()) + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+}
+
 const calcularDias = () => {
     const diaInicio = new Date(fechaInicio.value)
     const diaFinal = new Date(fechaFinal.value)
     dias.value = (diaFinal.getTime() - diaInicio.getTime()) / (24 * 3600 * 1000)
+    pago.value = propsDetalles.data['baserentalprice'] * dias.value + propsDetalles.data['cancellationprotection'] + propsDetalles.data['securitydeposit']
+}
+
+if (sessionStorage.getItem('token') != null) {
+    existeToken.value = true
+} else {
+    existeToken.value = false
+}
+
+const usarAlerta = () => {
+    mostrandoAlerta.value = !mostrandoAlerta.value
+    setTimeout(() => { mostrandoAlerta.value = !mostrandoAlerta.value; }, 1900);
+}
+
+const reservar = async (apartmentcode) => {
+    if (existeToken.value == true) {
+        if (fechaInicio.value !== '') {
+            if (fechaFinal.value) {
+                if (fechaFinal.value > fechaInicio.value) {
+                    try {
+                        if (pago.value <= balance.value) {
+                            const departmentreservationcode = store.encriptar((dni.value + '-' + pago.value + '-' + rol.value + '-' + fechaInicio.value + fechaFinal.value + '-' + bincar.value), 'reservation')
+                            const { data, error } = await supabase
+                                .from('departmentsreservation')
+                                .insert([
+                                    {
+                                        departmentreservationcode: departmentreservationcode,
+                                        reservationdate: fechaInicio.value,
+                                        reservationenddate: fechaFinal.value,
+                                        reserveddays: dias.value,
+                                        reservedby: clientcode.value,
+                                        apartmentcode: apartmentcode
+                                    },
+                                ])
+                            if (error) {
+                                mensaje.value = error
+                                err.value = 'true'
+                                usarAlerta()
+                            } else {
+                                actualizarBalance()
+                            }
+                        } else {
+                            mensaje.value = 'Tu saldo en la tarjeta es insuficiente'
+                            err.value = 'true'
+                            usarAlerta()
+                        }
+                    } catch (error) {
+                        mensaje.value = error
+                        err.value = 'true'
+                        usarAlerta()
+                    }
+                } else {
+                    mensaje.value = 'Por favor revisa tus fechas, debe tener al menos 1 día de reserva'
+                    err.value = 'true'
+                    usarAlerta()
+                }
+            } else {
+                mensaje.value = 'Indica el último día de tu reservación'
+                err.value = 'true'
+                usarAlerta()
+            }
+        } else {
+            mensaje.value = 'Indica cuando deseas que inicie tu reservación'
+            err.value = 'true'
+            usarAlerta()
+        }
+    } else {
+        mostrandoModalSesion.value = true
+    }
+}
+
+const actualizarBalance = async () => {
+    try {
+        const nuevoBalance = balance.value - pago.value
+        const { data, error } = await supabase
+            .from('cards')
+            .update({ balance: nuevoBalance })
+            .eq('bincard', bincar.value)
+        if (error) {
+            mensaje.value = error
+            err.value = 'true'
+            usarAlerta()
+        } else {
+            const dataTMP = JSON.parse(localStorage.getItem('usuario-data'))[0]
+            dataTMP['balance'] = nuevoBalance
+            localStorage.setItem('usuario-data', JSON.stringify([dataTMP]))
+            mensaje.value = 'Reserva realizada éxitosamente'
+            err.value = 'false'
+            usarAlerta()
+            setTimeout(() => { router.go() }, 1900);
+        }
+    } catch (error) {
+        mensaje.value = error
+        err.value = 'true'
+        usarAlerta()
+    }
 }
 
 </script>
